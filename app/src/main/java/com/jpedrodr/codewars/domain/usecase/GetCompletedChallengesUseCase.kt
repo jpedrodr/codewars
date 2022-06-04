@@ -1,14 +1,18 @@
 package com.jpedrodr.codewars.domain.usecase
 
 import com.jpedrodr.codewars.domain.model.CompletedChallenge
+import com.jpedrodr.codewars.lib.repository.ChallengeRepository
 import java.time.Instant
 
 /**
  * Use case to get the completed challenges
  */
-class GetCompletedChallengesUseCase {
+class GetCompletedChallengesUseCase(
+    private val challengeRepository: ChallengeRepository
+) {
 
     operator fun invoke(): List<CompletedChallenge> {
+//        challengeRepository.getCompletedChallenges()
         return createDummyData(10)
     }
 

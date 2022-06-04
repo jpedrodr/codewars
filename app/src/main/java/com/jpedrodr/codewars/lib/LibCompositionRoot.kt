@@ -1,3 +1,9 @@
 package com.jpedrodr.codewars.lib
 
-internal class LibCompositionRoot : Lib
+import com.jpedrodr.codewars.lib.repository.ChallengeRepository
+
+internal class LibCompositionRoot : Lib {
+
+    override val challengeRepository: ChallengeRepository
+        get() = ChallengeRepository()
+}
