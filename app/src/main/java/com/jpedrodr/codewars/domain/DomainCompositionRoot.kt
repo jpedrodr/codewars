@@ -1,3 +1,9 @@
 package com.jpedrodr.codewars.domain
 
-internal class DomainCompositionRoot : Domain
+import com.jpedrodr.codewars.domain.usecase.GetCompletedChallengesUseCase
+
+internal class DomainCompositionRoot : Domain {
+
+    override val getCompletedChallengesUseCase: GetCompletedChallengesUseCase
+        get() = GetCompletedChallengesUseCase()
+}
