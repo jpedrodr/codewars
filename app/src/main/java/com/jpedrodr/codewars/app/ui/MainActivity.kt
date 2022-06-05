@@ -1,10 +1,11 @@
-package com.jpedrodr.codewars.app
+package com.jpedrodr.codewars.app.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.jpedrodr.codewars.R
+import com.jpedrodr.codewars.commons.Tagged
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity(), Tagged {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -8,6 +8,9 @@ class CodeWarsApp : Application(), Tagged {
 
     private val _appCompositionRoot = AppCompositionRoot()
 
+    val appCompositionRoot: AppCompositionRoot
+        get() = _appCompositionRoot
+
     override fun onCreate() {
         super.onCreate()
 
