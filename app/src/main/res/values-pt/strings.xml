@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CodeWars</string>
+    <string name="challenge_name">Nome:</string>
+    <string name="challenge_slug">Slug:</string>
+    <string name="challenge_completed_at">Completado em:</string>
+    <string name="challenge_completed_langues">Linguagens completadas:</string>
+</resources>

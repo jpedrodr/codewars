@@ -9,6 +9,7 @@ import com.jpedrodr.codewars.app.ui.viewModel
 class ChallengeListFragment : BaseFragment(R.layout.fragment_challenge_list) {
 
     private val viewModel by viewModel<ChallengeListViewModel>()
+    private val adapter = ChallangeAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,6 +26,7 @@ class ChallengeListFragment : BaseFragment(R.layout.fragment_challenge_list) {
         logger.d(TAG, "setupObservers")
         viewModel.completedChallenges.observe(viewLifecycleOwner) {
             logger.d(TAG, "completedChallenges=${it.size}")
+            adapter.setupItems(it)
         }
     }
 

@@ -9,5 +9,6 @@ class CompletedChallenge(
     val id: String,
     val name: String,
     val slug: String,
-    val completedAt: Instant
+    val completedAt: Instant,
+    val completedLanguages: List<String>
 )

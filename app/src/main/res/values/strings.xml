@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CodeWars</string>
+    <string name="challenge_name">Name:</string>
+    <string name="challenge_slug">Slug:</string>
+    <string name="challenge_completed_at">Completed at:</string>
+    <string name="challenge_completed_langues">Completed languages:</string>
 </resources>
