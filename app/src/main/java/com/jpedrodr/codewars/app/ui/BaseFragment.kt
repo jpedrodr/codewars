@@ -4,10 +4,11 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.jpedrodr.codewars.app.di.FragmentCompositionRoot
+import com.jpedrodr.codewars.commons.Tagged
 
 open class BaseFragment(
     @LayoutRes fragmentLayoutRes: Int
-) : Fragment(fragmentLayoutRes) {
+) : Fragment(fragmentLayoutRes), Tagged {
 
     val compositionRoot by lazy {
         FragmentCompositionRoot((requireActivity() as BaseActivity).compositionRoot, this)
@@ -16,4 +17,4 @@ open class BaseFragment(
 }
 
 inline fun <reified T : ViewModel> BaseFragment.viewModel(): Lazy<T> =
-    lazy { compositionRoot.viewModelProvider.get(T::class.java) }
+    lazy { compositionRoot.viewModelProvider[T::class.java] }

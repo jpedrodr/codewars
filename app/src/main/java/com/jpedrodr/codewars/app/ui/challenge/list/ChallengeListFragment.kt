@@ -1,22 +1,31 @@
 package com.jpedrodr.codewars.app.ui.challenge.list
 
 import android.os.Bundle
+import android.view.View
 import com.jpedrodr.codewars.R
 import com.jpedrodr.codewars.app.ui.BaseFragment
 import com.jpedrodr.codewars.app.ui.viewModel
 
 class ChallengeListFragment : BaseFragment(R.layout.fragment_challenge_list) {
 
-    val viewModel by viewModel<ChallengeListViewModel>()
+    private val viewModel by viewModel<ChallengeListViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         loadChallenges()
+        setupObservers()
     }
 
     private fun loadChallenges() {
-//        viewModel.initialize()
+        viewModel.initialize()
+    }
+
+    private fun setupObservers() {
+        logger.d(TAG, "setupObservers")
+        viewModel.completedChallenges.observe(viewLifecycleOwner) {
+            logger.d(TAG, "completedChallenges=${it.size}")
+        }
     }
 
 }
