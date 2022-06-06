@@ -1,14 +1,11 @@
 package com.jpedrodr.codewars.app.ui
 
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.jpedrodr.codewars.app.di.FragmentCompositionRoot
 import com.jpedrodr.codewars.commons.Tagged
 
-open class BaseFragment(
-    @LayoutRes fragmentLayoutRes: Int
-) : Fragment(fragmentLayoutRes), Tagged {
+open class BaseFragment : Fragment(), Tagged {
 
     val compositionRoot by lazy {
         FragmentCompositionRoot((requireActivity() as BaseActivity).compositionRoot, this)
