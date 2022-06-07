@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--    toolbar-->
+    <dimen name="toolbar_elevation">4dp</dimen>
+
+    <!--    challenge list -->
+    <dimen name="challenge_list_vertical_margin">10dp</dimen>
+    <dimen name="challenge_list_horizontal_margin">4dp</dimen>
+
+    <!--    challenge item-->
     <dimen name="challenge_item_vertical_padding">5dp</dimen>
     <dimen name="challenge_item_horizontal_padding">10dp</dimen>
     <dimen name="challenge_item_container_vertical_padding">2dp</dimen>
     <dimen name="challenge_item_card_elevation">2dp</dimen>
     <dimen name="challenge_item_card_horizontal_margin">10dp</dimen>
     <dimen name="challenge_item_card_vertical_margin">3dp</dimen>
+
 </resources>

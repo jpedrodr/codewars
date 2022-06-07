@@ -16,17 +16,26 @@ class MainActivity : BaseActivity(), Tagged {
 
         setContentView(binding.root)
 
-        setupFragment()
+        initView()
 
-//        titulo da lista
 //        click do item
 //            fragment de detalhes
 //        comunicação ao BE
     }
 
-    private fun setupFragment() {
+    private fun initView() {
+        setupListFragment()
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.mainToolbar)
+    }
+
+    private fun setupListFragment() {
+        logger.d(TAG, "setupListFragment called")
         supportFragmentManager.beginTransaction().run {
-            add(R.id.fragment_container, ChallengeListFragment())
+            replace(R.id.fragment_container, ChallengeListFragment())
             commit()
         }
     }

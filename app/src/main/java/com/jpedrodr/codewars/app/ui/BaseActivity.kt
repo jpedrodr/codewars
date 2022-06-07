@@ -1,13 +1,13 @@
 package com.jpedrodr.codewars.app.ui
 
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import com.jpedrodr.codewars.app.CodeWarsApp
 import com.jpedrodr.codewars.app.di.ActivityComponent
 import com.jpedrodr.codewars.app.di.ActivityCompositionRoot
 import com.jpedrodr.codewars.commons.Tagged
 
-open class BaseActivity : FragmentActivity(), Tagged {
+open class BaseActivity : AppCompatActivity(), Tagged {
 
     private val _compositionRoot by lazy {
         ActivityCompositionRoot(
