@@ -5,4 +5,5 @@
     <string name="challenge_slug">Slug:</string>
     <string name="challenge_completed_at">Completado em:</string>
     <string name="challenge_completed_langues">Linguagens completadas:</string>
+    <string name="completed_challenges">Desafios completados:</string>
 </resources>

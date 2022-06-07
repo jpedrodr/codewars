@@ -11,7 +11,7 @@ import com.jpedrodr.codewars.databinding.FragmentChallengeListBinding
 class ChallengeListFragment : BaseFragment() {
 
     private val viewModel by viewModel<ChallengeListViewModel>()
-    private val adapter = ChallangeAdapter()
+    private val adapter = ChallengeAdapter()
     private lateinit var viewBinding: FragmentChallengeListBinding
 
     override fun onCreateView(

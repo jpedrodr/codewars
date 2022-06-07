@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jpedrodr.codewars.databinding.ChallengeListItemBinding
 import com.jpedrodr.codewars.domain.model.CompletedChallenge
 
-class ChallangeAdapter : RecyclerView.Adapter<ChallangeAdapter.ChallengeItemViewHolder>() {
+class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemViewHolder>() {
 
     private var items: List<CompletedChallenge> = emptyList()
 
@@ -16,7 +16,6 @@ class ChallangeAdapter : RecyclerView.Adapter<ChallangeAdapter.ChallengeItemView
         // TODO this should use diff utils for better performance
         notifyDataSetChanged()
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeItemViewHolder {
         val binding =

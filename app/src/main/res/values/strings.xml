@@ -4,4 +4,5 @@
     <string name="challenge_slug">Slug:</string>
     <string name="challenge_completed_at">Completed at:</string>
     <string name="challenge_completed_langues">Completed languages:</string>
+    <string name="completed_challenges">Completed Challanges</string>
 </resources>

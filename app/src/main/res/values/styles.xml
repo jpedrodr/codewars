@@ -5,6 +5,11 @@
 
     <style name="Theme.Challenge" />
 
+    <style name="Theme.Challenge.List">
+        <item name="android:layout_marginHorizontal">5dp</item>
+        <item name="android:layout_marginVertical">10dp</item>
+    </style>
+
     <style name="Theme.Challenge.Card">
         <item name="android:layout_marginHorizontal">@dimen/challenge_item_card_horizontal_margin
         </item>
@@ -13,8 +18,8 @@
     </style>
 
     <style name="Theme.Challenge.Item">
-        <item name="android:paddingHorizontal">@dimen/challenge_item_horizontal_padding</item>
         <item name="android:paddingVertical">@dimen/challenge_item_vertical_padding</item>
+        <item name="android:paddingHorizontal">@dimen/challenge_item_horizontal_padding</item>
     </style>
 
     <style name="Theme.Challenge.Container">

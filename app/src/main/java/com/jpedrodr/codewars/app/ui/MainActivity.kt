@@ -17,6 +17,11 @@ class MainActivity : BaseActivity(), Tagged {
         setContentView(binding.root)
 
         setupFragment()
+
+//        titulo da lista
+//        click do item
+//            fragment de detalhes
+//        comunicação ao BE
     }
 
     private fun setupFragment() {
