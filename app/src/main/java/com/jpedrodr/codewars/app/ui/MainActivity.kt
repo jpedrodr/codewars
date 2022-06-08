@@ -18,7 +18,6 @@ class MainActivity : BaseActivity(), Tagged {
 
         initView()
 
-//        click do item
 //            fragment de detalhes
 //        comunicação ao BE
     }

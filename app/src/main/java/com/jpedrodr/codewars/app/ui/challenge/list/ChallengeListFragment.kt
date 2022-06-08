@@ -46,6 +46,10 @@ class ChallengeListFragment : BaseFragment() {
 
     private fun setupAdapter() {
         viewBinding.challengesListRv.adapter = adapter
+
+        adapter.onItemClick = {
+            logger.d(TAG, "onItemClick=$it")
+        }
     }
 
 }

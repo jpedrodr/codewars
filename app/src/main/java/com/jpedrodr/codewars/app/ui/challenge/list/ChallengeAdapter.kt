@@ -9,6 +9,7 @@ import com.jpedrodr.codewars.domain.model.CompletedChallenge
 class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemViewHolder>() {
 
     private var items: List<CompletedChallenge> = emptyList()
+    var onItemClick: ((CompletedChallenge) -> Unit)? = null
 
     fun setupItems(challenges: List<CompletedChallenge>) {
         items = challenges
@@ -38,6 +39,9 @@ class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemView
             challengeItemSlugTv.text = item.slug
             challengeItemCompletedAtTv.text = item.completedAt.toString()
             challengeItemCompletedLanguageTv.text = item.completedLanguages.size.toString()
+            challengeItemCard.setOnClickListener {
+                onItemClick?.invoke(item)
+            }
         }
     }
 }

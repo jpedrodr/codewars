@@ -11,4 +11,9 @@ class CompletedChallenge(
     val slug: String,
     val completedAt: Instant,
     val completedLanguages: List<String>
-)
+) {
+
+    override fun toString(): String {
+        return "CompletedChallenge(id=$id, name=$name, slug=$slug, completedAt=$completedAt, completedLanguages=$completedLanguages)"
+    }
+}
