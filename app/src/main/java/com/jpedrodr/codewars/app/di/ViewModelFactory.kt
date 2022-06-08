@@ -5,6 +5,7 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
+import com.jpedrodr.codewars.app.ui.MainViewModel
 import com.jpedrodr.codewars.app.ui.challenge.list.ChallengeListViewModel
 import com.jpedrodr.codewars.commons.Tagged
 
@@ -23,8 +24,9 @@ class ViewModelFactory(
         handle: SavedStateHandle
     ): T {
         return when (modelClass) {
-            ChallengeListViewModel::class.java -> ChallengeListViewModel(domain.getCompletedChallengesUseCase) as T
+            ChallengeListViewModel::class.java -> ChallengeListViewModel(domain.getCompletedChallengesUseCase)
+            MainViewModel::class.java -> MainViewModel()
             else -> throw Exception("ViewModel not supported $this")
-        }
+        } as T
     }
 }

@@ -1,12 +1,12 @@
 package com.jpedrodr.codewars.app.di
 
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.jpedrodr.codewars.app.ui.BaseActivity
 
 class ActivityCompositionRoot(
     appComponent: AppComponent,
-    private val activity: FragmentActivity
+    override val activity: BaseActivity
 ) : ActivityComponent, AppComponent by appComponent {
 
     override val viewModelProvider: ViewModelProvider by lazy {

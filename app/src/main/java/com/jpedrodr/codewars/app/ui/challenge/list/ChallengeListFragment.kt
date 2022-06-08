@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jpedrodr.codewars.app.ui.BaseFragment
+import com.jpedrodr.codewars.app.ui.MainViewModel
+import com.jpedrodr.codewars.app.ui.activityViewModel
 import com.jpedrodr.codewars.app.ui.viewModel
 import com.jpedrodr.codewars.databinding.FragmentChallengeListBinding
 
 class ChallengeListFragment : BaseFragment() {
 
     private val viewModel by viewModel<ChallengeListViewModel>()
+    private val mainViewModel by activityViewModel<MainViewModel>()
     private val adapter = ChallengeAdapter()
     private lateinit var viewBinding: FragmentChallengeListBinding
 
@@ -49,6 +52,7 @@ class ChallengeListFragment : BaseFragment() {
 
         adapter.onItemClick = {
             logger.d(TAG, "onItemClick=$it")
+            mainViewModel.openChallenge(it)
         }
     }
 

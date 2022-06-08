@@ -9,6 +9,7 @@ import com.jpedrodr.codewars.databinding.ActivityMainBinding
 class MainActivity : BaseActivity(), Tagged {
 
     private lateinit var binding: ActivityMainBinding
+    private val viewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,7 @@ class MainActivity : BaseActivity(), Tagged {
     private fun initView() {
         setupListFragment()
         setupToolbar()
+        setupObservers()
     }
 
     private fun setupToolbar() {
@@ -36,6 +38,12 @@ class MainActivity : BaseActivity(), Tagged {
         supportFragmentManager.beginTransaction().run {
             replace(R.id.fragment_container, ChallengeListFragment())
             commit()
+        }
+    }
+
+    private fun setupObservers() {
+        viewModel.openChallenge.observe(this) {
+            logger.d(TAG, "openChallenge - open details fragment with challenge=$it")
         }
     }
 }

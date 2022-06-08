@@ -15,3 +15,7 @@ open class BaseFragment : Fragment(), Tagged {
 
 inline fun <reified T : ViewModel> BaseFragment.viewModel(): Lazy<T> =
     lazy { compositionRoot.viewModelProvider[T::class.java] }
+
+inline fun <reified T : ViewModel> BaseFragment.activityViewModel(): Lazy<T> = lazy {
+    compositionRoot.activityViewModelProvider[T::class.java]
+}

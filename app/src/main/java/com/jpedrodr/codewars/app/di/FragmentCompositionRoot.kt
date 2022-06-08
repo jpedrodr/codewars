@@ -17,4 +17,11 @@ class FragmentCompositionRoot(
     }
 
     override val viewModelStoreOwner: ViewModelStoreOwner = fragment
+
+    val activityViewModelProvider by lazy {
+        ViewModelProvider(
+            activity.viewModelStore,
+            ViewModelFactory(this, activity)
+        )
+    }
 }

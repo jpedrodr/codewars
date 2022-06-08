@@ -21,4 +21,4 @@ open class BaseActivity : AppCompatActivity(), Tagged {
 }
 
 inline fun <reified T : ViewModel> BaseActivity.viewModel(): Lazy<T> =
-    lazy { compositionRoot.viewModelProvider.get(T::class.java) }
+    lazy { compositionRoot.viewModelProvider[T::class.java] }
