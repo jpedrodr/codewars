@@ -16,19 +16,21 @@
         <item name="android:layout_marginVertical">@dimen/challenge_list_vertical_margin</item>
     </style>
 
-    <style name="Theme.Challenge.Card">
+    <style name="Theme.Challenge.Item" />
+
+    <style name="Theme.Challenge.Item.Card">
         <item name="android:layout_marginHorizontal">@dimen/challenge_item_card_horizontal_margin
         </item>
         <item name="android:layout_marginVertical">@dimen/challenge_item_card_vertical_margin</item>
         <item name="cardElevation">@dimen/challenge_item_card_elevation</item>
     </style>
 
-    <style name="Theme.Challenge.Item">
+    <style name="Theme.Challenge.Item.MainContainer">
         <item name="android:paddingVertical">@dimen/challenge_item_vertical_padding</item>
         <item name="android:paddingHorizontal">@dimen/challenge_item_horizontal_padding</item>
     </style>
 
-    <style name="Theme.Challenge.Container">
+    <style name="Theme.Challenge.Item.Container">
         <item name="android:paddingVertical">@dimen/challenge_item_container_vertical_padding</item>
     </style>
 
@@ -42,6 +44,21 @@
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:fontWeight">100</item>
         <item name="android:textColor">@color/text_secondary_color</item>
+    </style>
+
+    <style name="Theme.Challenge.Details" />
+
+    <style name="Theme.Challenge.Details.MainContainer">
+        <item name="background">@color/white</item>
+        <item name="android:paddingHorizontal">
+            @dimen/challenge_details_main_container_horizontal_padding
+        </item>
+        <item name="android:paddingTop">@dimen/challenge_details_main_container_padding_top</item>
+    </style>
+
+    <style name="Theme.Challenge.Details.Container">
+        <item name="android:paddingVertical">@dimen/challenge_details_container_vertical_padding
+        </item>
     </style>
 
 

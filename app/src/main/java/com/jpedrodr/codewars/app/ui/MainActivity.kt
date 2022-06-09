@@ -2,6 +2,8 @@ package com.jpedrodr.codewars.app.ui
 
 import android.os.Bundle
 import com.jpedrodr.codewars.R
+import com.jpedrodr.codewars.app.ui.challenge.bundle.CompletedChallengeBundle
+import com.jpedrodr.codewars.app.ui.challenge.details.ChallengeDetailsFragment
 import com.jpedrodr.codewars.app.ui.challenge.list.ChallengeListFragment
 import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.databinding.ActivityMainBinding
@@ -42,8 +44,23 @@ class MainActivity : BaseActivity(), Tagged {
     }
 
     private fun setupObservers() {
-        viewModel.openChallenge.observe(this) {
-            logger.d(TAG, "openChallenge - open details fragment with challenge=$it")
+        viewModel.openChallenge.observe(this) { challenge ->
+            logger.d(TAG, "openChallenge - challenge=$challenge")
+            supportFragmentManager.beginTransaction().run {
+                add(
+                    R.id.fragment_container,
+                    ChallengeDetailsFragment().also {
+                        it.arguments = CompletedChallengeBundle.create(challenge)
+                    }
+                )
+                addToBackStack(null)
+                commit()
+            }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        supportFragmentManager.popBackStack()
     }
 }

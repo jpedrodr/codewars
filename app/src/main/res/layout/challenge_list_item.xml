@@ -4,18 +4,18 @@
     android:id="@+id/challenge_item_card"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Theme.Challenge.Card"
+    style="@style/Theme.Challenge.Item.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/Theme.Challenge.Item"
+        style="@style/Theme.Challenge.Item.MainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/challenge_item_name_layout"
-            style="@style/Theme.Challenge.Container"
+            style="@style/Theme.Challenge.Item.Container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
@@ -40,7 +40,7 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/challenge_item_slug_layout"
-            style="@style/Theme.Challenge.Container"
+            style="@style/Theme.Challenge.Item.Container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/challenge_item_name_layout">
@@ -66,7 +66,7 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/challenge_item_completed_at_layout"
-            style="@style/Theme.Challenge.Container"
+            style="@style/Theme.Challenge.Item.Container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/challenge_item_slug_layout">
@@ -90,7 +90,7 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/challenge_item_completed_languages_layout"
-            style="@style/Theme.Challenge.Container"
+            style="@style/Theme.Challenge.Item.Container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/challenge_item_completed_at_layout">

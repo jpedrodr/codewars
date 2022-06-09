@@ -1,5 +1,6 @@
 package com.jpedrodr.codewars.domain.model
 
+import java.io.Serializable
 import java.time.Instant
 
 /**
@@ -11,7 +12,7 @@ class CompletedChallenge(
     val slug: String,
     val completedAt: Instant,
     val completedLanguages: List<String>
-) {
+) : Serializable {
 
     override fun toString(): String {
         return "CompletedChallenge(id=$id, name=$name, slug=$slug, completedAt=$completedAt, completedLanguages=$completedLanguages)"

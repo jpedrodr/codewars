@@ -13,7 +13,11 @@
     <dimen name="challenge_item_horizontal_padding">10dp</dimen>
     <dimen name="challenge_item_container_vertical_padding">2dp</dimen>
     <dimen name="challenge_item_card_elevation">2dp</dimen>
-    <dimen name="challenge_item_card_horizontal_margin">10dp</dimen>
+    <dimen name="challenge_item_card_horizontal_margin">5dp</dimen>
     <dimen name="challenge_item_card_vertical_margin">3dp</dimen>
 
+    <!--    challenge details-->
+    <dimen name="challenge_details_main_container_horizontal_padding">15dp</dimen>
+    <dimen name="challenge_details_main_container_padding_top">10dp</dimen>
+    <dimen name="challenge_details_container_vertical_padding">5dp</dimen>
 </resources>
