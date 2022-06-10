@@ -7,6 +7,7 @@ import com.jpedrodr.codewars.app.ui.challenge.details.ChallengeDetailsFragment
 import com.jpedrodr.codewars.app.ui.challenge.list.ChallengeListFragment
 import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.databinding.ActivityMainBinding
+import com.jpedrodr.codewars.domain.model.CompletedChallenge
 
 class MainActivity : BaseActivity(), Tagged {
 
@@ -21,8 +22,17 @@ class MainActivity : BaseActivity(), Tagged {
 
         initView()
 
-//            fragment de detalhes
 //        comunicação ao BE
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        onBack()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBack()
+        return super.onSupportNavigateUp()
     }
 
     private fun initView() {
@@ -31,8 +41,16 @@ class MainActivity : BaseActivity(), Tagged {
         setupObservers()
     }
 
+    private fun onBack() {
+        logger.d(TAG, "onBack called")
+        supportFragmentManager.popBackStack()
+        setupListToolbar()
+    }
+
+
     private fun setupToolbar() {
         setSupportActionBar(binding.mainToolbar)
+        setupListToolbar()
     }
 
     private fun setupListFragment() {
@@ -45,22 +63,40 @@ class MainActivity : BaseActivity(), Tagged {
 
     private fun setupObservers() {
         viewModel.openChallenge.observe(this) { challenge ->
-            logger.d(TAG, "openChallenge - challenge=$challenge")
-            supportFragmentManager.beginTransaction().run {
-                add(
-                    R.id.fragment_container,
-                    ChallengeDetailsFragment().also {
-                        it.arguments = CompletedChallengeBundle.create(challenge)
-                    }
-                )
-                addToBackStack(null)
-                commit()
-            }
+            openChallenge(challenge)
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        supportFragmentManager.popBackStack()
+    private fun openChallenge(challenge: CompletedChallenge) {
+        logger.d(TAG, "openChallenge - challenge=$challenge")
+        supportFragmentManager.beginTransaction().run {
+            add(
+                R.id.fragment_container,
+                ChallengeDetailsFragment().also {
+                    it.arguments = CompletedChallengeBundle.create(challenge)
+                }
+            )
+            addToBackStack(null)
+            commit()
+        }
+
+        setDetailsToolbar(challenge)
     }
+
+    private fun setupListToolbar() {
+        supportActionBar?.apply {
+            title = getString(R.string.completed_challenges)
+            setDisplayShowHomeEnabled(false)
+            setDisplayHomeAsUpEnabled(false)
+        }
+    }
+
+    private fun setDetailsToolbar(challenge: CompletedChallenge) {
+        supportActionBar?.apply {
+            title = getString(R.string.challenge, challenge.name)
+            setDisplayShowHomeEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
 }

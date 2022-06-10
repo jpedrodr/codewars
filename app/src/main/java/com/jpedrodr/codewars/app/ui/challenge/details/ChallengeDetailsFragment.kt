@@ -19,7 +19,7 @@ class ChallengeDetailsFragment : BaseFragment() {
     ): View {
         viewBinding = FragmentChallengeDetailsBinding.inflate(layoutInflater, container, false)
 
-        CompletedChallengeBundle.fromBundle(savedInstanceState)?.also {
+        CompletedChallengeBundle.fromBundle(arguments)?.also {
             setupData(it)
         }
 
@@ -27,9 +27,12 @@ class ChallengeDetailsFragment : BaseFragment() {
     }
 
 
-    private fun setupData(challenge: CompletedChallenge) {
+    private fun setupData(challenge: CompletedChallenge) = with(viewBinding) {
         logger.d(TAG, "setupData - challenge=$challenge")
-        // put data in view
+        challengeDetailsNameTv.text = challenge.name
+        challengeDetailsSlugTv.text = challenge.slug
+        challengeDetailsCompletedAtTv.text = challenge.completedAt.toString()
+        challengeDetailsCompletedLanguageTv.text = challenge.completedLanguages.size.toString()
     }
 
 }

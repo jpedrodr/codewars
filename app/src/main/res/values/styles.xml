@@ -49,7 +49,7 @@
     <style name="Theme.Challenge.Details" />
 
     <style name="Theme.Challenge.Details.MainContainer">
-        <item name="background">@color/white</item>
+        <item name="android:background">@color/white</item>
         <item name="android:paddingHorizontal">
             @dimen/challenge_details_main_container_horizontal_padding
         </item>
