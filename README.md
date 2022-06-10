@@ -11,3 +11,9 @@ All commits done in the main branch: since it's a 1 person repo, no point in cre
 Future implementations:
 
 Centralize the navigation with fragments
+
+Finish BE communication
+
+Add list support to layouts 
+
+Tests
