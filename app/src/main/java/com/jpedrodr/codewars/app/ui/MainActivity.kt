@@ -21,8 +21,6 @@ class MainActivity : BaseActivity(), Tagged {
         setContentView(binding.root)
 
         initView()
-
-//        comunicação ao BE
     }
 
     override fun onBackPressed() {

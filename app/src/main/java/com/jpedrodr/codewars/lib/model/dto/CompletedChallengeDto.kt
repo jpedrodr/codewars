@@ -1,11 +1,11 @@
-package com.jpedrodr.codewars.lib.model
+package com.jpedrodr.codewars.lib.model.dto
 
 import java.time.Instant
 
 /**
- * Class to hold data of a completed challenge
+ * DTO Class for a completed challenge
  */
-class CompletedChallenge(
+class CompletedChallengeDto(
     val id: String,
     val name: String,
     val slug: String,
