@@ -1,9 +1,10 @@
 package com.jpedrodr.codewars.lib.model
 
-import com.jpedrodr.codewars.domain.model.CompletedChallenge
-
+/**
+ * DTO class to parse the GetCompletedChallenges response
+ */
 class CompletedChallengesResponse(
-    totalPages: Int,
-    totalItems: Int,
-    data: List<CompletedChallenge>
+    val totalPages: Int,
+    val totalItems: Int,
+    val data: List<CompletedChallenge>
 )

@@ -31,7 +31,7 @@ class ChallengeDetailsFragment : BaseFragment() {
         logger.d(TAG, "setupData - challenge=$challenge")
         challengeDetailsNameTv.text = challenge.name
         challengeDetailsSlugTv.text = challenge.slug
-        challengeDetailsCompletedAtTv.text = challenge.completedAt.toString()
+        challengeDetailsCompletedAtTv.text = challenge.completedAt
         challengeDetailsCompletedLanguageTv.text = challenge.completedLanguages.size.toString()
     }
 

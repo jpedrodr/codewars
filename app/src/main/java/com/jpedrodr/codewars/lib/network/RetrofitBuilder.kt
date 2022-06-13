@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://www.codewars.com/api/v1/users/"
+private const val BASE_URL = "https://www.codewars.com/api/v1/users/g964/code-challenges/"
 
 class RetrofitBuilder {
 

@@ -37,7 +37,7 @@ class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemView
         fun setupItem(item: CompletedChallenge) = with(binding) {
             challengeItemNameTv.text = item.name
             challengeItemSlugTv.text = item.slug
-            challengeItemCompletedAtTv.text = item.completedAt.toString()
+            challengeItemCompletedAtTv.text = item.completedAt
             challengeItemCompletedLanguageTv.text = item.completedLanguages.size.toString()
             challengeItemCard.setOnClickListener {
                 onItemClick?.invoke(item)
