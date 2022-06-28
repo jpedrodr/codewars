@@ -17,6 +17,7 @@ class RetrofitBuilder {
         fun getRetrofit(): Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
+            .addCallAdapterFactory(CustomCallFactory())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }

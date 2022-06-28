@@ -4,11 +4,15 @@ import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.lib.model.CompletedChallenge
 import com.jpedrodr.codewars.lib.model.CompletedChallengesResponse
 import com.jpedrodr.codewars.lib.network.ChallengeApi
+import com.jpedrodr.codewars.lib.network.Error
+import com.jpedrodr.codewars.lib.network.Result
+import com.jpedrodr.codewars.lib.network.Success
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 private const val DEFAULT_PAGE_INDEX = 0
 private const val DEFAUlT_NO_DATA_SIZE = 0
@@ -22,7 +26,15 @@ class ChallengeRepository(private val challengeApi: ChallengeApi) : Tagged {
      * Gets the completed challenges from the backend
      */
     suspend fun getCompletedChallenges(): List<CompletedChallenge> = withContext(Dispatchers.IO) {
-        val firstPageResult = requestCompletedChallenges(DEFAULT_PAGE_INDEX)
+        val firstPageResponse = doCompletedChallenges(DEFAULT_PAGE_INDEX)
+
+
+        if (firstPageResponse is Error) {
+            logger.d(TAG, "getCompletedChallenges got an error - error=$firstPageResponse")
+            return@withContext emptyList()
+        }
+
+        val firstPageResult = firstPageResponse.unwrapSuccess()
 
         logger.d(
             TAG,
@@ -53,8 +65,27 @@ class ChallengeRepository(private val challengeApi: ChallengeApi) : Tagged {
         return@withContext firstPageResult.data + deferredCalls.awaitAll().flatMap { it.data }
     }
 
+
     private suspend fun requestCompletedChallenges(page: Int): CompletedChallengesResponse {
-        return challengeApi.getCompletedChallenges(page).body()
-            ?: return CompletedChallengesResponse(0, 0, emptyList())
+        val response = doCompletedChallenges(page)
+
+        if (response is Error) {
+            logger.d(TAG, "doCompletedChallenges got an error - error=$response")
+            return CompletedChallengesResponse(0, 0, emptyList())
+        }
+
+        return response.unwrapSuccess()
+    }
+
+    private suspend fun doCompletedChallenges(page: Int): Result<CompletedChallengesResponse> {
+        val response = challengeApi.getCompletedChallenges(page)
+        if (!response.isSuccessful) {
+            return Error(HttpException(response))
+        }
+
+        return Success(
+            challengeApi.getCompletedChallenges(page).body()
+                ?: CompletedChallengesResponse(0, 0, emptyList())
+        )
     }
 }

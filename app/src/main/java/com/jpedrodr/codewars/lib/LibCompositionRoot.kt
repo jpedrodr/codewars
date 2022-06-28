@@ -12,7 +12,7 @@ internal class LibCompositionRoot : Lib {
 
     private val retrofit: Retrofit = RetrofitBuilder.getRetrofit()
 
-    val challengeApi by lazy {
+    private val challengeApi by lazy {
         retrofit.create(ChallengeApi::class.java)
     }
 
