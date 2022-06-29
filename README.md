@@ -11,9 +11,9 @@ Future implementations:
 
 Handle BE exceptions (such as lack of connectivity, BE unavailable, etc)
 
-Centralize the navigation with fragments
-
 Display loading animation in list fragment
+
+Centralize the navigation with fragments
 
 Properly display challenges' completed languages
 
