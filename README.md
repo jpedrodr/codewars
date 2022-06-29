@@ -9,6 +9,8 @@ All commits done in the main branch: since it's a 1 person repo, no point in cre
 
 Future implementations:
 
+Handle BE exceptions (such as lack of connectivity, BE unavailable, etc)
+
 Centralize the navigation with fragments
 
 Display loading animation in list fragment
