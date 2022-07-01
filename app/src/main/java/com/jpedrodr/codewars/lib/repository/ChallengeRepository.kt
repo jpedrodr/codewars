@@ -6,13 +6,13 @@ import com.jpedrodr.codewars.lib.model.CompletedChallengesResponse
 import com.jpedrodr.codewars.lib.network.ChallengeApi
 import com.jpedrodr.codewars.lib.network.Error
 import com.jpedrodr.codewars.lib.network.Result
-import com.jpedrodr.codewars.lib.network.Success
+import com.jpedrodr.codewars.lib.network.performNetwork
+import com.jpedrodr.codewars.lib.network.unwrapSuccess
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 
 private const val DEFAULT_PAGE_INDEX = 0
 private const val DEFAUlT_NO_DATA_SIZE = 0
@@ -78,14 +78,10 @@ class ChallengeRepository(private val challengeApi: ChallengeApi) : Tagged {
     }
 
     private suspend fun doCompletedChallenges(page: Int): Result<CompletedChallengesResponse> {
-        val response = challengeApi.getCompletedChallenges(page)
-        if (!response.isSuccessful) {
-            return Error(HttpException(response))
+        val result = performNetwork(page) {
+            challengeApi.getCompletedChallenges(it)
         }
 
-        return Success(
-            challengeApi.getCompletedChallenges(page).body()
-                ?: CompletedChallengesResponse(0, 0, emptyList())
-        )
+        return result
     }
 }

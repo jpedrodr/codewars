@@ -7,10 +7,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_URL = "https://www.codewars.com/api/v1/users/g964/code-challenges/"
 
+/**
+ * Class responsible for instantiating Retrofit
+ */
 class RetrofitBuilder {
 
     companion object Factory {
-        private val client = OkHttpClient.Builder().build()
+        private val client = OkHttpClient.Builder()
+            .addInterceptor(ConnectivityInterceptor())
+            .build()
 
         private val gson = GsonBuilder().create()
 

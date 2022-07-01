@@ -1,18 +1,14 @@
 package com.jpedrodr.codewars.lib.network
 
-abstract class Result<T> {
-    fun unwrapSuccess(): T {
-        return when (this) {
-            is Error -> throw IllegalAccessException("Can't unwrap an error!")
-            is Success -> data
-            else -> {
-                throw NotImplementedError("$this should be handled in unwrapSuccess")
-            }
-        }
+typealias Result<T> = Either<T, Exception>
+
+fun <T, E> Either<T, E>.unwrapSuccess(): T {
+    return when (this) {
+        is Error -> throw IllegalAccessException("Can't unwrap an error!")
+        is Success -> data
     }
 }
 
-class Success<T>(val data: T) : Result<T>()
-
-class Error<T>(val exception: Exception) : Result<T>()
-
+sealed class Either<out T, out E>
+data class Success<out T>(val data: T) : Either<T, Nothing>()
+data class Error<out E>(val data: E) : Either<Nothing, E>()
