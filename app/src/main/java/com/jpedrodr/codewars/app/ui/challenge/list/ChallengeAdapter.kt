@@ -1,6 +1,5 @@
 package com.jpedrodr.codewars.app.ui.challenge.list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -26,14 +25,12 @@ class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeItemViewHolder {
         val binding =
             ChallengeListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        Log.d("test009", "onCreateViewHolder")
         return ChallengeItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ChallengeItemViewHolder, position: Int) {
         val item = items[position]
         holder.setupItem(item)
-        Log.d("test009", "onBindViewHolder 1")
     }
 
     override fun onBindViewHolder(
@@ -41,14 +38,12 @@ class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemView
         position: Int,
         payloads: MutableList<Any>
     ) {
-        Log.d("test009", "onBindViewHolder 2  - payloads=${payloads.size}")
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position)
             return
         }
 
         val stringPayloads = getPayloads(payloads)
-        Log.d("test009", "payloads=$payloads, stringPayloads=$stringPayloads")
 
         val item = items[position]
 

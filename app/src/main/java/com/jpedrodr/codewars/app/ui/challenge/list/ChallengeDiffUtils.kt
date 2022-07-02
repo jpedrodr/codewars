@@ -1,6 +1,5 @@
 package com.jpedrodr.codewars.app.ui.challenge.list
 
-import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import com.jpedrodr.codewars.app.model.CompletedChallenge
 
@@ -17,11 +16,6 @@ class ChallengeDiffUtils(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldItems[oldItemPosition]
         val newItem = newItems[newItemPosition]
-
-        Log.d(
-            "test009",
-            "oldItemPosition=$, newItemPosition=$newItemPosition oldItem=${oldItem.id}, newItem=${newItem.id}"
-        )
 
         return newItem.id == oldItem.id
     }
