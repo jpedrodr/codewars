@@ -5,5 +5,4 @@
     <string name="challenge_completed_at">Completed at:</string>
     <string name="challenge_completed_languages">Used languages:</string>
     <string name="completed_challenges">Completed Challenges</string>
-    <string name="challenge">Challenge %1$s</string>
 </resources>

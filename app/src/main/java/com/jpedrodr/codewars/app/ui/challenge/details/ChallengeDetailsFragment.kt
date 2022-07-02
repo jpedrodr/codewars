@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jpedrodr.codewars.app.model.CompletedChallenge
 import com.jpedrodr.codewars.app.ui.BaseFragment
 import com.jpedrodr.codewars.app.ui.challenge.ChallengeDateFormatter
 import com.jpedrodr.codewars.app.ui.challenge.bundle.CompletedChallengeBundle
 import com.jpedrodr.codewars.databinding.FragmentChallengeDetailsBinding
-import com.jpedrodr.codewars.domain.model.CompletedChallenge
 
 class ChallengeDetailsFragment : BaseFragment() {
 

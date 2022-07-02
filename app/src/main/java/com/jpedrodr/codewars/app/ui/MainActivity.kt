@@ -1,15 +1,13 @@
 package com.jpedrodr.codewars.app.ui
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
 import com.jpedrodr.codewars.R
+import com.jpedrodr.codewars.app.model.CompletedChallenge
 import com.jpedrodr.codewars.app.ui.challenge.bundle.CompletedChallengeBundle
 import com.jpedrodr.codewars.app.ui.challenge.details.ChallengeDetailsFragment
 import com.jpedrodr.codewars.app.ui.challenge.list.ChallengeListFragment
 import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.databinding.ActivityMainBinding
-import com.jpedrodr.codewars.domain.model.CompletedChallenge
 
 class MainActivity : BaseActivity(), Tagged {
 
@@ -23,9 +21,6 @@ class MainActivity : BaseActivity(), Tagged {
         setContentView(binding.root)
 
         initView()
-
-        val k: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
     }
 
     override fun onBackPressed() {
@@ -96,7 +91,7 @@ class MainActivity : BaseActivity(), Tagged {
 
     private fun setDetailsToolbar(challenge: CompletedChallenge) {
         supportActionBar?.apply {
-            title = getString(R.string.challenge, challenge.name)
+            title = challenge.name
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }

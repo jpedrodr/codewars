@@ -6,5 +6,4 @@
     <string name="challenge_completed_at">Completado em:</string>
     <string name="challenge_completed_languages">Linguagens usadas:</string>
     <string name="completed_challenges">Desafios completados</string>
-    <string name="challenge">Desafio %1$s</string>
 </resources>

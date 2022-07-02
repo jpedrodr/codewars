@@ -1,7 +1,7 @@
 package com.jpedrodr.codewars.app.ui.challenge.bundle
 
 import android.os.Bundle
-import com.jpedrodr.codewars.domain.model.CompletedChallenge
+import com.jpedrodr.codewars.app.model.CompletedChallenge
 
 private const val CHALLENGE_KEY = "CHALLENGE"
 

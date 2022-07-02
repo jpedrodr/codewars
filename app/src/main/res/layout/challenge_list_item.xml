@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/challenge_slug"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/challenge_item_name_tv_label">
+            app:layout_constraintTop_toBottomOf="@id/challenge_item_name_tv">
 
         </TextView>
 
@@ -54,27 +54,6 @@
             app:layout_constraintTop_toTopOf="@id/challenge_item_slug_label"
             tools:text="multiples-of-3-and-5" />
 
-
-        <TextView
-            android:id="@+id/challenge_item_completed_at_label"
-            style="@style/Theme.Challenge.Text.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/challenge_completed_at"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/challenge_item_slug_label" />
-
-        <TextView
-            android:id="@+id/challenge_item_completed_at_tv"
-            style="@style/Theme.Challenge.Text.Value"
-            android:layout_width="0dp"
-            app:layout_constraintStart_toEndOf="@id/challenge_item_completed_at_label"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/challenge_item_completed_at_label"
-            tools:text="2017-04-06" />
-
-
         <TextView
             android:id="@+id/challenge_item_completed_languages_label"
             style="@style/Theme.Challenge.Text.Label"
@@ -82,7 +61,7 @@
             android:layout_height="wrap_content"
             android:text="@string/challenge_completed_languages"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/challenge_item_completed_at_label" />
+            app:layout_constraintTop_toBottomOf="@id/challenge_item_slug_tv" />
 
         <TextView
             android:id="@+id/challenge_item_completed_language_tv"
@@ -92,7 +71,26 @@
             app:layout_constraintStart_toEndOf="@id/challenge_item_completed_languages_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/challenge_item_completed_languages_label"
-            tools:text="11" />
+            tools:text="java, python" />
+
+        <TextView
+            android:id="@+id/challenge_item_completed_at_label"
+            style="@style/Theme.Challenge.Text.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/challenge_completed_at"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/challenge_item_completed_language_tv" />
+
+        <TextView
+            android:id="@+id/challenge_item_completed_at_tv"
+            style="@style/Theme.Challenge.Text.Value"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toEndOf="@id/challenge_item_completed_at_label"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/challenge_item_completed_at_label"
+            tools:text="06-11-2017" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

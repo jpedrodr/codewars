@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jpedrodr.codewars.app.model.CompletedChallenge
+import com.jpedrodr.codewars.app.model.mapper.mapToUi
 import com.jpedrodr.codewars.commons.Tagged
-import com.jpedrodr.codewars.domain.model.CompletedChallenge
 import com.jpedrodr.codewars.domain.usecase.GetCompletedChallengesUseCase
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,6 @@ class ChallengeListViewModel(
     private suspend fun loadChallenges() {
         val challenges = getCompletedChallengesUseCase()
         logger.d(TAG, "loadChallenges - challenges=${challenges.size}")
-        _completedChallenges.value = challenges
+        _completedChallenges.value = challenges.mapToUi()
     }
 }
