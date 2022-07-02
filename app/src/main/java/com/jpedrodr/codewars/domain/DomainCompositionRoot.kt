@@ -1,9 +1,12 @@
 package com.jpedrodr.codewars.domain
 
+import com.jpedrodr.codewars.app.network.ConnectivityManager
 import com.jpedrodr.codewars.domain.usecase.GetCompletedChallengesUseCase
 import com.jpedrodr.codewars.lib.Lib
 
-internal class DomainCompositionRoot : Domain {
+internal class DomainCompositionRoot(
+    private val connectivityManager: ConnectivityManager
+) : Domain {
 
     private val lib = Lib()
 

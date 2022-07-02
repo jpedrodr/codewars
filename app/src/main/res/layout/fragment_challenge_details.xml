@@ -91,7 +91,7 @@
             style="@style/Theme.Challenge.Text.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/challenge_completed_langues">
+            android:text="@string/challenge_completed_languages">
 
         </TextView>
 

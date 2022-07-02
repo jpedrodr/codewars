@@ -1,5 +1,7 @@
 package com.jpedrodr.codewars.app.ui
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import com.jpedrodr.codewars.R
 import com.jpedrodr.codewars.app.ui.challenge.bundle.CompletedChallengeBundle
@@ -21,6 +23,9 @@ class MainActivity : BaseActivity(), Tagged {
         setContentView(binding.root)
 
         initView()
+
+        val k: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
     }
 
     override fun onBackPressed() {

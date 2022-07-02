@@ -6,7 +6,7 @@ import com.jpedrodr.codewars.commons.Tagged
 
 class CodeWarsApp : Application(), Tagged {
 
-    private val _appCompositionRoot = AppCompositionRoot()
+    private val _appCompositionRoot = AppCompositionRoot(this)
 
     val appCompositionRoot: AppCompositionRoot
         get() = _appCompositionRoot
