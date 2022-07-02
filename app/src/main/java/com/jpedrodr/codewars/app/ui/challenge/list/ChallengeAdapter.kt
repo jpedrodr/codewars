@@ -3,13 +3,18 @@ package com.jpedrodr.codewars.app.ui.challenge.list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.jpedrodr.codewars.app.ui.challenge.ChallengeDateFormatter
 import com.jpedrodr.codewars.databinding.ChallengeListItemBinding
 import com.jpedrodr.codewars.domain.model.CompletedChallenge
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemViewHolder>() {
 
     private var items: List<CompletedChallenge> = emptyList()
     var onItemClick: ((CompletedChallenge) -> Unit)? = null
+
+    private val formatter = ChallengeDateFormatter()
 
     fun setupItems(challenges: List<CompletedChallenge>) {
         items = challenges
@@ -37,8 +42,9 @@ class ChallengeAdapter : RecyclerView.Adapter<ChallengeAdapter.ChallengeItemView
         fun setupItem(item: CompletedChallenge) = with(binding) {
             challengeItemNameTv.text = item.name
             challengeItemSlugTv.text = item.slug
-            challengeItemCompletedAtTv.text = item.completedAt
-            challengeItemCompletedLanguageTv.text = item.completedLanguages.size.toString()
+
+            challengeItemCompletedAtTv.text = formatter.format(item.completedAt)
+            challengeItemCompletedLanguageTv.text = item.completedLanguages.joinToString()
             challengeItemCard.setOnClickListener {
                 onItemClick?.invoke(item)
             }

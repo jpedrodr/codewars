@@ -3,6 +3,8 @@ package com.jpedrodr.codewars.lib.repository
 import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.lib.model.CompletedChallenge
 import com.jpedrodr.codewars.lib.model.CompletedChallengesResponse
+import com.jpedrodr.codewars.lib.model.dto.CompletedChallengesResponseDto
+import com.jpedrodr.codewars.lib.model.mapper.mapToLib
 import com.jpedrodr.codewars.lib.network.*
 import kotlinx.coroutines.*
 
@@ -18,30 +20,27 @@ class ChallengeRepository(private val challengeApi: ChallengeApi) : Tagged {
      * Gets the completed challenges from the backend
      */
     suspend fun getCompletedChallenges(): List<CompletedChallenge> = withContext(Dispatchers.IO) {
-        val firstPageResponse = doCompletedChallenges(DEFAULT_PAGE_INDEX)
+        val firstPageResponse = requestCompletedChallenges(DEFAULT_PAGE_INDEX)
 
-
-        if (firstPageResponse is Error) {
-            logger.d(TAG, "getCompletedChallenges got an error - error=$firstPageResponse")
+        if (firstPageResponse.totalItems == 0) {
+            logger.d(TAG, "getCompletedChallenges got no items")
             return@withContext emptyList()
         }
 
-        val firstPageResult = firstPageResponse.unwrapSuccess()
-
         logger.d(
             TAG,
-            "getCompletedChallenges - totalPages=${firstPageResult.totalPages}, totalItems=${firstPageResult.totalItems}"
+            "getCompletedChallenges - totalPages=${firstPageResponse.totalPages}, totalItems=${firstPageResponse.totalItems}"
         )
 
-        if (firstPageResult.totalPages == DEFAUlT_NO_DATA_SIZE || firstPageResult.totalItems == DEFAUlT_NO_DATA_SIZE) {
+        if (firstPageResponse.totalPages == DEFAUlT_NO_DATA_SIZE || firstPageResponse.totalItems == DEFAUlT_NO_DATA_SIZE) {
             // there are no challenges for the requested used
             return@withContext emptyList()
         }
 
-        val totalPages = firstPageResult.totalPages
+        val totalPages = firstPageResponse.totalPages
 
         if (totalPages == 1) { // if there is only 1 page (and we already have on the first request), return it immediately
-            return@withContext firstPageResult.data
+            return@withContext firstPageResponse.data
         }
 
         val deferredCalls = mutableListOf<Deferred<CompletedChallengesResponse>>()
@@ -54,9 +53,8 @@ class ChallengeRepository(private val challengeApi: ChallengeApi) : Tagged {
             deferredCalls.add(request)
         }
 
-        return@withContext firstPageResult.data + deferredCalls.awaitAll().flatMap { it.data }
+        return@withContext firstPageResponse.data + deferredCalls.awaitAll().flatMap { it.data }
     }
-
 
     private suspend fun requestCompletedChallenges(page: Int): CompletedChallengesResponse {
         val response = doCompletedChallenges(page)
@@ -66,10 +64,10 @@ class ChallengeRepository(private val challengeApi: ChallengeApi) : Tagged {
             return CompletedChallengesResponse(0, 0, emptyList())
         }
 
-        return response.unwrapSuccess()
+        return response.unwrapSuccess().mapToLib()
     }
 
-    private suspend fun doCompletedChallenges(page: Int): Result<CompletedChallengesResponse> {
+    private suspend fun doCompletedChallenges(page: Int): Result<CompletedChallengesResponseDto> {
         val result = performNetwork(page) {
             challengeApi.getCompletedChallenges(it)
         }

@@ -19,5 +19,4 @@
     <!--    challenge details-->
     <dimen name="challenge_details_main_container_horizontal_padding">15dp</dimen>
     <dimen name="challenge_details_main_container_padding_top">10dp</dimen>
-    <dimen name="challenge_details_container_vertical_padding">5dp</dimen>
 </resources>

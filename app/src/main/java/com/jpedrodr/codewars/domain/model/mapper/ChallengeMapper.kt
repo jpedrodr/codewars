@@ -1,6 +1,5 @@
 package com.jpedrodr.codewars.domain.model.mapper
 
-
 typealias LibCompletedChallenge = com.jpedrodr.codewars.lib.model.CompletedChallenge
 typealias DomainCompletedChallenge = com.jpedrodr.codewars.domain.model.CompletedChallenge
 

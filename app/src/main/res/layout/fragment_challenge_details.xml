@@ -6,104 +6,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/challenge_details_name_layout"
-        style="@style/Theme.Challenge.Details.Container"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/challenge_details_name_tv_label"
+        style="@style/Theme.Challenge.Text.Label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:text="@string/challenge_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/challenge_details_name_tv_label"
-            style="@style/Theme.Challenge.Text.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/challenge_name" />
-
-        <TextView
-            android:id="@+id/challenge_details_name_tv"
-            style="@style/Theme.Challenge.Text.Value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Multiples of 3 and 5" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/challenge_details_slug_layout"
-        style="@style/Theme.Challenge.Details.Container"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/challenge_details_name_tv"
+        style="@style/Theme.Challenge.Text.Value"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/challenge_details_name_layout">
-
-        <TextView
-            android:id="@+id/challenge_details_slug_label"
-            style="@style/Theme.Challenge.Text.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/challenge_slug">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/challenge_details_slug_tv"
-            style="@style/Theme.Challenge.Text.Value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="multiples-of-3-and-5" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/challenge_details_name_tv_label"
+        app:layout_constraintTop_toTopOf="@id/challenge_details_name_tv_label"
+        tools:text="Multiples of 3 and 5" />
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/challenge_details_completed_at_layout"
-        style="@style/Theme.Challenge.Details.Container"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/challenge_details_slug_label"
+        style="@style/Theme.Challenge.Text.Label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/challenge_details_slug_layout">
+        android:text="@string/challenge_slug"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/challenge_details_name_tv_label">
 
-        <TextView
-            android:id="@+id/challenge_details_completed_at_label"
-            style="@style/Theme.Challenge.Text.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/challenge_completed_at" />
+    </TextView>
 
-        <TextView
-            android:id="@+id/challenge_details_completed_at_tv"
-            style="@style/Theme.Challenge.Text.Value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="2017-04-06" />
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/challenge_details_completed_languages_layout"
-        style="@style/Theme.Challenge.Details.Container"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/challenge_details_slug_tv"
+        style="@style/Theme.Challenge.Text.Value"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toEndOf="@id/challenge_details_slug_label"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/challenge_details_completed_at_layout">
-
-        <TextView
-            android:id="@+id/challenge_details_completed_languages_label"
-            style="@style/Theme.Challenge.Text.Label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/challenge_completed_languages">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/challenge_details_completed_language_tv"
-            style="@style/Theme.Challenge.Text.Value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="11" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/challenge_details_slug_label"
+        tools:text="multiples-of-3-and-5" />
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <TextView
+        android:id="@+id/challenge_details_completed_at_label"
+        style="@style/Theme.Challenge.Text.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/challenge_completed_at"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/challenge_details_slug_label" />
 
+    <TextView
+        android:id="@+id/challenge_details_completed_at_tv"
+        style="@style/Theme.Challenge.Text.Value"
+        android:layout_width="0dp"
+        app:layout_constraintStart_toEndOf="@id/challenge_details_completed_at_label"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/challenge_details_completed_at_label"
+        tools:text="2017-04-06" />
+
+
+    <TextView
+        android:id="@+id/challenge_details_completed_languages_label"
+        style="@style/Theme.Challenge.Text.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/challenge_completed_languages"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/challenge_details_completed_at_label" />
+
+    <TextView
+        android:id="@+id/challenge_details_completed_language_tv"
+        style="@style/Theme.Challenge.Text.Value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/challenge_details_completed_languages_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/challenge_details_completed_languages_label"
+        tools:text="11" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jpedrodr.codewars.app.ui.BaseFragment
+import com.jpedrodr.codewars.app.ui.challenge.ChallengeDateFormatter
 import com.jpedrodr.codewars.app.ui.challenge.bundle.CompletedChallengeBundle
 import com.jpedrodr.codewars.databinding.FragmentChallengeDetailsBinding
 import com.jpedrodr.codewars.domain.model.CompletedChallenge
 
 class ChallengeDetailsFragment : BaseFragment() {
 
-    lateinit var viewBinding: FragmentChallengeDetailsBinding
+    private lateinit var viewBinding: FragmentChallengeDetailsBinding
+    private val formatter = ChallengeDateFormatter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +33,8 @@ class ChallengeDetailsFragment : BaseFragment() {
         logger.d(TAG, "setupData - challenge=$challenge")
         challengeDetailsNameTv.text = challenge.name
         challengeDetailsSlugTv.text = challenge.slug
-        challengeDetailsCompletedAtTv.text = challenge.completedAt
-        challengeDetailsCompletedLanguageTv.text = challenge.completedLanguages.size.toString()
+        challengeDetailsCompletedAtTv.text = formatter.format(challenge.completedAt)
+        challengeDetailsCompletedLanguageTv.text = challenge.completedLanguages.joinToString()
     }
 
 }
