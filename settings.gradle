@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CodeWars"
 include ':app'
-include ':Network'

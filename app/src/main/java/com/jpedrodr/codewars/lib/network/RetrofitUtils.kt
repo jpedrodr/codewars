@@ -1,23 +1,13 @@
-package com.jpedrodr.codewars.app.network
+package com.jpedrodr.codewars.lib.network
 
-import com.jpedrodr.codewars.lib.network.Error
-import com.jpedrodr.codewars.lib.network.Result
-import com.jpedrodr.codewars.lib.network.Success
 import com.jpedrodr.codewars.lib.network.exceptions.NoNetworkException
 import retrofit2.Response
-
 
 inline fun <V, B : Any> performNetwork(
     body: B,
     request: (B) -> Response<V>
 ): Result<V> {
     val response: Response<V>
-
-    try {
-        request(body)
-    } catch (e: NoNetworkException) {
-
-    }
 
     try {
         response = request(body)

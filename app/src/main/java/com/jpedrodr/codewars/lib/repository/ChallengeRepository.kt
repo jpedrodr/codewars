@@ -3,16 +3,8 @@ package com.jpedrodr.codewars.lib.repository
 import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.lib.model.CompletedChallenge
 import com.jpedrodr.codewars.lib.model.CompletedChallengesResponse
-import com.jpedrodr.codewars.lib.network.ChallengeApi
-import com.jpedrodr.codewars.lib.network.Error
-import com.jpedrodr.codewars.lib.network.Result
-import com.jpedrodr.codewars.app.network.performNetwork
-import com.jpedrodr.codewars.lib.network.unwrapSuccess
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.withContext
+import com.jpedrodr.codewars.lib.network.*
+import kotlinx.coroutines.*
 
 private const val DEFAULT_PAGE_INDEX = 0
 private const val DEFAUlT_NO_DATA_SIZE = 0

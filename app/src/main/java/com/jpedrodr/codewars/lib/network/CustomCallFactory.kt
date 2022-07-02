@@ -1,14 +1,12 @@
 package com.jpedrodr.codewars.lib.network
 
 import com.jpedrodr.codewars.commons.Tagged
+import retrofit2.*
 import java.lang.reflect.Type
-import retrofit2.Call
-import retrofit2.CallAdapter
-import retrofit2.Callback
-import retrofit2.HttpException
-import retrofit2.Response
-import retrofit2.Retrofit
 
+/**
+ * Class to handle responses, only logs at the moment
+ */
 class CustomCallFactory : CallAdapter.Factory() {
 
     override fun get(
@@ -17,6 +15,7 @@ class CustomCallFactory : CallAdapter.Factory() {
         retrofit: Retrofit
     ): CallAdapter<*, *> {
         val delegate = retrofit.nextCallAdapter(this, returnType, annotations)
+        @Suppress("UNCHECKED_CAST")
         return ErrorsCallAdapter(delegateAdapter = delegate as CallAdapter<Any, Call<*>>)
     }
 
