@@ -1,6 +1,8 @@
-package com.jpedrodr.codewars.lib.network
+package com.jpedrodr.codewars.app.network
 
 import com.google.gson.GsonBuilder
+import com.jpedrodr.codewars.app.network.ConnectivityInterceptor
+import com.jpedrodr.codewars.lib.network.CustomCallFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

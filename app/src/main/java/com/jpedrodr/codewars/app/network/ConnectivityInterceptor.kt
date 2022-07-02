@@ -1,4 +1,4 @@
-package com.jpedrodr.codewars.lib.network
+package com.jpedrodr.codewars.app.network
 
 import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.lib.network.exceptions.NoNetworkException
@@ -8,6 +8,7 @@ import retrofit2.Invocation
 
 class ConnectivityInterceptor : Interceptor, Tagged {
     override fun intercept(chain: Interceptor.Chain): Response {
+
         val request = chain.request()
 
         val invocation = request.tag(Invocation::class.java)

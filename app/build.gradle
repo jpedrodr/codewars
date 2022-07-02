@@ -37,6 +37,9 @@ android {
     task prepareKotlinBuildScriptModel {
 
     }
+
+    task wrapper(type: Wrapper){
+    }
 }
 
 dependencies {

@@ -6,7 +6,7 @@ import com.jpedrodr.codewars.lib.model.CompletedChallengesResponse
 import com.jpedrodr.codewars.lib.network.ChallengeApi
 import com.jpedrodr.codewars.lib.network.Error
 import com.jpedrodr.codewars.lib.network.Result
-import com.jpedrodr.codewars.lib.network.performNetwork
+import com.jpedrodr.codewars.app.network.performNetwork
 import com.jpedrodr.codewars.lib.network.unwrapSuccess
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers

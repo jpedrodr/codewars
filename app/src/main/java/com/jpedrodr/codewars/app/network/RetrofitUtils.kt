@@ -1,5 +1,8 @@
-package com.jpedrodr.codewars.lib.network
+package com.jpedrodr.codewars.app.network
 
+import com.jpedrodr.codewars.lib.network.Error
+import com.jpedrodr.codewars.lib.network.Result
+import com.jpedrodr.codewars.lib.network.Success
 import com.jpedrodr.codewars.lib.network.exceptions.NoNetworkException
 import retrofit2.Response
 
