@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/challengeListFragment">
+
+    <fragment
+        android:id="@+id/challengeListFragment"
+        android:name="com.jpedrodr.codewars.app.ui.challenge.list.ChallengeListFragment"
+        android:label="ChallengeListFragment">
+        <action
+            android:id="@+id/action_challengeListFragment_to_challengeDetailsFragment"
+            app:destination="@id/challengeDetailsFragment" />
+        <argument
+            android:name="completedChallenge"
+            app:argType="com.jpedrodr.codewars.app.model.CompletedChallenge" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/challengeDetailsFragment"
+        android:name="com.jpedrodr.codewars.app.ui.challenge.details.ChallengeDetailsFragment"
+        android:label="ChallengeDetailsFragment" />
+</navigation>

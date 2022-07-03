@@ -1,11 +1,11 @@
 package com.jpedrodr.codewars.app.ui
 
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.jpedrodr.codewars.R
 import com.jpedrodr.codewars.app.model.CompletedChallenge
 import com.jpedrodr.codewars.app.ui.challenge.bundle.CompletedChallengeBundle
-import com.jpedrodr.codewars.app.ui.challenge.details.ChallengeDetailsFragment
-import com.jpedrodr.codewars.app.ui.challenge.list.ChallengeListFragment
 import com.jpedrodr.codewars.commons.Tagged
 import com.jpedrodr.codewars.databinding.ActivityMainBinding
 
@@ -14,11 +14,17 @@ class MainActivity : BaseActivity(), Tagged {
     private lateinit var binding: ActivityMainBinding
     private val viewModel by viewModel<MainViewModel>()
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
 
         initView()
     }
@@ -34,14 +40,13 @@ class MainActivity : BaseActivity(), Tagged {
     }
 
     private fun initView() {
-        setupListFragment()
         setupToolbar()
         setupObservers()
     }
 
     private fun onBack() {
         logger.d(TAG, "onBack called")
-        supportFragmentManager.popBackStack()
+        navController.navigateUp()
         setupListToolbar()
     }
 
@@ -49,14 +54,6 @@ class MainActivity : BaseActivity(), Tagged {
     private fun setupToolbar() {
         setSupportActionBar(binding.mainToolbar)
         setupListToolbar()
-    }
-
-    private fun setupListFragment() {
-        logger.d(TAG, "setupListFragment called")
-        supportFragmentManager.beginTransaction().run {
-            replace(R.id.fragment_container, ChallengeListFragment())
-            commit()
-        }
     }
 
     private fun setupObservers() {
@@ -67,17 +64,10 @@ class MainActivity : BaseActivity(), Tagged {
 
     private fun openChallenge(challenge: CompletedChallenge) {
         logger.d(TAG, "openChallenge - challenge=$challenge")
-        supportFragmentManager.beginTransaction().run {
-            add(
-                R.id.fragment_container,
-                ChallengeDetailsFragment().also {
-                    it.arguments = CompletedChallengeBundle.create(challenge)
-                }
-            )
-            addToBackStack(null)
-            commit()
-        }
-
+        navController.navigate(
+            R.id.action_challengeListFragment_to_challengeDetailsFragment,
+            CompletedChallengeBundle.create(challenge)
+        )
         setDetailsToolbar(challenge)
     }
 
