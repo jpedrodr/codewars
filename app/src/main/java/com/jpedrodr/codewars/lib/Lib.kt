@@ -1,5 +1,6 @@
 package com.jpedrodr.codewars.lib
 
+import com.jpedrodr.codewars.lib.database.AppDatabase
 import com.jpedrodr.codewars.lib.repository.ChallengeRepository
 import com.jpedrodr.codewars.lib.repository.OfflineModeRepository
 
@@ -8,7 +9,8 @@ import com.jpedrodr.codewars.lib.repository.OfflineModeRepository
 interface Lib {
 
     companion object {
-        operator fun invoke(): Lib = LibCompositionRoot()
+        // database shouldn't be passed from app since lib shouldn't have access to app
+        operator fun invoke(database: AppDatabase): Lib = LibCompositionRoot(database)
     }
 
     val challengeRepository: ChallengeRepository
