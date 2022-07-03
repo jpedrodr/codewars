@@ -1,6 +1,8 @@
 package com.jpedrodr.codewars.lib
 
 import com.jpedrodr.codewars.lib.database.AppDatabase
+import com.jpedrodr.codewars.lib.interactor.ChallengeInteractor
+import com.jpedrodr.codewars.lib.interactor.OfflineModeInteractor
 import com.jpedrodr.codewars.lib.network.ChallengeApi
 import com.jpedrodr.codewars.lib.network.RetrofitBuilder
 import com.jpedrodr.codewars.lib.repository.ChallengeRepository
@@ -11,14 +13,23 @@ internal class LibCompositionRoot(
     private val database: AppDatabase
 ) : Lib {
 
-    override val challengeRepository: ChallengeRepository
+    override val offlineModeInteractor: OfflineModeInteractor
+        get() = OfflineModeInteractor(
+            offlineModeRepository,
+            challengeRepository
+        )
+
+    override val challengeInteractor: ChallengeInteractor
+        get() = ChallengeInteractor(challengeRepository)
+
+    private val challengeRepository: ChallengeRepository
         get() = ChallengeRepository(
             challengeApi,
             database.completedChallengeDao(),
             offlineModeRepository
         )
 
-    override val offlineModeRepository: OfflineModeRepository by lazy { OfflineModeRepository() }
+    private val offlineModeRepository: OfflineModeRepository by lazy { OfflineModeRepository() }
 
     private val retrofit: Retrofit = RetrofitBuilder.getRetrofit(offlineModeRepository)
 

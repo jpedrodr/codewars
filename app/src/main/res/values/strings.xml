@@ -5,4 +5,5 @@
     <string name="challenge_completed_at">Completed at:</string>
     <string name="challenge_completed_languages">Used languages:</string>
     <string name="completed_challenges">Completed Challenges</string>
+    <string name="shared_preferences_file_key" translatable="false">com.jpedrodr.codewars.PREFERENCE_FILE_KEY</string>
 </resources>

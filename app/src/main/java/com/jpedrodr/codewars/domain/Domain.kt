@@ -1,5 +1,6 @@
 package com.jpedrodr.codewars.domain
 
+import com.jpedrodr.codewars.domain.usecase.CompletedChallengesRefreshTimestampUseCase
 import com.jpedrodr.codewars.domain.usecase.GetCompletedChallengesUseCase
 import com.jpedrodr.codewars.domain.usecase.SetOfflineModeUseCase
 import com.jpedrodr.codewars.lib.database.AppDatabase
@@ -13,5 +14,7 @@ interface Domain {
     val getCompletedChallengesUseCase: GetCompletedChallengesUseCase
 
     val setOfflineModeUseCase: SetOfflineModeUseCase
+
+    val completedChallengesRefreshTimestampUseCase: CompletedChallengesRefreshTimestampUseCase
 
 }

@@ -1,5 +1,6 @@
 package com.jpedrodr.codewars.domain
 
+import com.jpedrodr.codewars.domain.usecase.CompletedChallengesRefreshTimestampUseCase
 import com.jpedrodr.codewars.domain.usecase.GetCompletedChallengesUseCase
 import com.jpedrodr.codewars.domain.usecase.SetOfflineModeUseCase
 import com.jpedrodr.codewars.lib.Lib
@@ -10,8 +11,11 @@ internal class DomainCompositionRoot(database: AppDatabase) : Domain {
     private val lib = Lib(database)
 
     override val getCompletedChallengesUseCase: GetCompletedChallengesUseCase
-        get() = GetCompletedChallengesUseCase(lib.challengeRepository)
+        get() = GetCompletedChallengesUseCase(lib.challengeInteractor)
 
     override val setOfflineModeUseCase: SetOfflineModeUseCase
-        get() = SetOfflineModeUseCase(lib.offlineModeRepository)
+        get() = SetOfflineModeUseCase(lib.offlineModeInteractor)
+
+    override val completedChallengesRefreshTimestampUseCase: CompletedChallengesRefreshTimestampUseCase
+        get() = CompletedChallengesRefreshTimestampUseCase(lib.challengeInteractor)
 }

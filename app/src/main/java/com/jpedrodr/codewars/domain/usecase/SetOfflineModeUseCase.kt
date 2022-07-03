@@ -1,11 +1,11 @@
 package com.jpedrodr.codewars.domain.usecase
 
-import com.jpedrodr.codewars.lib.repository.OfflineModeRepository
+import com.jpedrodr.codewars.lib.interactor.OfflineModeInteractor
 
 class SetOfflineModeUseCase(
-    private val offlineModeRepository: OfflineModeRepository
+    private val offlineModeInteractor: OfflineModeInteractor
 ) {
     operator fun invoke(isOffline: Boolean) {
-        offlineModeRepository.setOfflineMode(isOffline)
+        offlineModeInteractor.setOfflineMode(isOffline)
     }
 }
