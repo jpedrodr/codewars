@@ -44,12 +44,14 @@ class ChallengeListFragment : BaseFragment() {
         viewModel.completedChallenges.observe(viewLifecycleOwner) {
             logger.d(TAG, "completedChallenges=${it.size}")
             adapter.setupItems(it)
-            viewBinding.challengesListSrl.isRefreshing = false
+        }
+
+        viewModel.challengesLoading.observe(viewLifecycleOwner) {
+            viewBinding.challengesListSrl.isRefreshing = it
         }
     }
 
     private fun initView() {
-        viewBinding.challengesListSrl.isRefreshing = true
         viewBinding.challengesListRv.adapter = adapter
 
         adapter.onItemClick = {

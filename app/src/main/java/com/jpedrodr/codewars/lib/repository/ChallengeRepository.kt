@@ -19,7 +19,6 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -35,7 +34,7 @@ class ChallengeRepository(
     private val challengeApi: ChallengeApi,
     private val completedChallengeDao: CompletedChallengeDao,
     private val offlineModeRepository: OfflineModeRepository,
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private val challengesScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) : Tagged {
 
     // The timestamp in milliseconds of the last refresh of the completed challenges
@@ -62,16 +61,16 @@ class ChallengeRepository(
                 return@withContext getChallengesFromDatabase()
             }
 
-        val completedChallenges = getCompletedChallengesFromNetwork()
+            val completedChallenges = getCompletedChallengesFromNetwork()
 
-        launch {
-            insertChallengesInDatabase(completedChallenges)
+            launch {
+                insertChallengesInDatabase(completedChallenges)
+            }
+
+            return@withContext completedChallenges
         }
 
-        return@withContext completedChallenges
-    }
-
-    fun refreshDataIfNeeded() = scope.launch {
+    fun refreshDataIfNeeded() = challengesScope.launch {
         if (checkDataValidity()) {
             logger.d(TAG, "refreshDataIfNeeded - data is valid, no need to refresh")
             return@launch
@@ -136,12 +135,12 @@ class ChallengeRepository(
     }
 
     private suspend fun getCompletedChallengesFromNetwork(): List<CompletedChallenge> =
-        coroutineScope {
+        with(challengesScope) {
             val firstPageResponse = requestCompletedChallengesFromNetwork(DEFAULT_PAGE_INDEX)
 
             if (firstPageResponse.totalItems == 0) {
                 logger.d(TAG, "getCompletedChallenges got no items")
-                return@coroutineScope emptyList()
+                return@with emptyList()
             }
 
             logger.d(
@@ -149,30 +148,30 @@ class ChallengeRepository(
                 "getCompletedChallenges - totalPages=${firstPageResponse.totalPages}, totalItems=${firstPageResponse.totalItems}"
             )
 
-        if (firstPageResponse.totalPages == DEFAUlT_NO_DATA_SIZE || firstPageResponse.totalItems == DEFAUlT_NO_DATA_SIZE) {
-            // there are no challenges for the requested used
-            return@coroutineScope emptyList()
-        }
-
-        val totalPages = firstPageResponse.totalPages
-
-        if (totalPages == 1) { // if there is only 1 page (and we already have on the first request), return it immediately
-            return@coroutineScope firstPageResponse.data
-        }
-
-        val deferredCalls = mutableListOf<Deferred<CompletedChallengesResponse>>()
-
-        for (page in 1..totalPages) { // start on page = 1 because we already have the first page
-            val request = async {
-                requestCompletedChallengesFromNetwork(page)
+            if (firstPageResponse.totalPages == DEFAUlT_NO_DATA_SIZE || firstPageResponse.totalItems == DEFAUlT_NO_DATA_SIZE) {
+                // there are no challenges for the requested used
+                return@with emptyList()
             }
 
-            deferredCalls.add(request)
-        }
+            val totalPages = firstPageResponse.totalPages
 
-            return@coroutineScope firstPageResponse.data + deferredCalls.awaitAll()
+            if (totalPages == 1) { // if there is only 1 page (and we already have on the first request), return it immediately
+                return@with firstPageResponse.data
+            }
+
+            val deferredCalls = mutableListOf<Deferred<CompletedChallengesResponse>>()
+
+            for (page in 1..totalPages) { // start on page = 1 because we already have the first page
+                val request = async {
+                    requestCompletedChallengesFromNetwork(page)
+                }
+
+                deferredCalls.add(request)
+            }
+
+            return@with firstPageResponse.data + deferredCalls.awaitAll()
                 .flatMap { it.data }.distinctBy { it.id }
-    }
+        }
 
     private suspend fun requestCompletedChallengesFromNetwork(page: Int): CompletedChallengesResponse {
         val result = performNetwork(page) {

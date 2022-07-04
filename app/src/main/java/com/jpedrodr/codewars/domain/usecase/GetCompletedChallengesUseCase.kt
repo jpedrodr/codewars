@@ -9,7 +9,7 @@ import com.jpedrodr.codewars.lib.interactor.ChallengeInteractor
  * Use case to get the completed challenges
  */
 class GetCompletedChallengesUseCase(
-    private val challengeInteractor: ChallengeInteractor
+    private val challengeInteractor: ChallengeInteractor,
 ) : Tagged {
 
     suspend operator fun invoke(forceUpdate: Boolean = false): List<CompletedChallenge> {

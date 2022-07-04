@@ -24,7 +24,10 @@ class ViewModelFactory(
         handle: SavedStateHandle
     ): T {
         return when (modelClass) {
-            ChallengeListViewModel::class.java -> ChallengeListViewModel(domain.getCompletedChallengesUseCase)
+            ChallengeListViewModel::class.java -> ChallengeListViewModel(
+                domain.getCompletedChallengesUseCase,
+                domain.offlineModeChangesUseCase
+            )
             MainViewModel::class.java -> MainViewModel()
             else -> throw Exception("ViewModel not supported $this")
         } as T

@@ -9,6 +9,8 @@ class OfflineModeInteractor(
     private val challengeRepository: ChallengeRepository
 ) : Tagged {
 
+    val offlineModeFlow = offlineModeRepository.offlineModeFlow
+
     fun setOfflineMode(isOffline: Boolean) {
         val isFirstTimeOnline = offlineModeRepository.isFirstTimeOnline()
         logger.d(TAG, "setOfflineMode - isOffline=$isOffline, isFirstTimeOnline=$isFirstTimeOnline")

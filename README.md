@@ -9,8 +9,6 @@ branches. Also, there are no formal tasks to associate with each branch.
 
 Future implementations:
 
-Database and offline mode
-
 Light/dark mode
 
 Put network logic in module
