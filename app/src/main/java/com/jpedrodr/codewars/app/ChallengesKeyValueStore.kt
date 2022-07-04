@@ -4,11 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.jpedrodr.codewars.R
 import com.jpedrodr.codewars.commons.INVALID_TIMESTAMP
+import com.jpedrodr.codewars.commons.Tagged
 
 private const val COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY =
     "COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY"
 
-object ChallengesKeyValueStore {
+/**
+ * This KeyValueStore should be abstracted via an interface and should be passed to lib so lib can change it directly
+ */
+object ChallengesKeyValueStore : Tagged {
 
     private lateinit var context: Context
 
@@ -28,10 +32,14 @@ object ChallengesKeyValueStore {
             throw IllegalAccessError("Can't access key store without calling init")
         }
 
-        return sharedPreferences.getLong(
+        val timestamp = sharedPreferences.getLong(
             COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY,
             INVALID_TIMESTAMP
         )
+
+        logger.d(TAG, "getCompletedChallengesLastRefreshTimestamp - timestamp=$timestamp")
+
+        return timestamp
     }
 
     fun setCompletedChallengesLastRefreshTimestamp(timestamp: Long) {
@@ -39,6 +47,7 @@ object ChallengesKeyValueStore {
             throw IllegalAccessError("Can't access key store without calling init")
         }
 
+        logger.d(TAG, "setCompletedChallengesLastRefreshTimestamp - timestamp=$timestamp")
         sharedPreferences.edit().putLong(COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY, timestamp)
             .commit()
     }

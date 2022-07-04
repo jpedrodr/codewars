@@ -9,10 +9,10 @@ import com.jpedrodr.codewars.lib.interactor.OfflineModeInteractor
 interface Lib {
 
     companion object {
-        // database shouldn't be passed from app since lib shouldn't have access to app
+        // Lib should receive an interface of AppDatabase, since it shouldn't have access to android classes
+        // That interface should be implemented by the app
         operator fun invoke(database: AppDatabase): Lib = LibCompositionRoot(database)
     }
-
 
     val challengeInteractor: ChallengeInteractor
 

@@ -9,19 +9,19 @@ class OfflineModeInteractor(
     private val challengeRepository: ChallengeRepository
 ) : Tagged {
 
-    private var isFirstTimeOnline = true
-
     fun setOfflineMode(isOffline: Boolean) {
-        logger.d(TAG, "setOfflineMode - isOffline=$isOffline")
+        val isFirstTimeOnline = offlineModeRepository.isFirstTimeOnline()
+        logger.d(TAG, "setOfflineMode - isOffline=$isOffline, isFirstTimeOnline=$isFirstTimeOnline")
         val currentOfflineState = offlineModeRepository.isOffline()
         offlineModeRepository.setOfflineMode(isOffline)
+
+        if (isFirstTimeOnline) {
+            offlineModeRepository.setFirstTimeOnline(false)
+        }
 
         if (!isOffline && currentOfflineState && !isFirstTimeOnline) {
             // if we were offline but no longer are, refresh data if needed
             challengeRepository.refreshDataIfNeeded()
-            isFirstTimeOnline = false
         }
     }
-
-    fun isOffline() = offlineModeRepository.isOffline()
 }

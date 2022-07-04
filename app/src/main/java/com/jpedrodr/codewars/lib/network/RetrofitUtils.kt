@@ -1,6 +1,5 @@
 package com.jpedrodr.codewars.lib.network
 
-import com.jpedrodr.codewars.lib.network.exceptions.NoNetworkException
 import retrofit2.Response
 
 inline fun <V, B : Any> performNetwork(

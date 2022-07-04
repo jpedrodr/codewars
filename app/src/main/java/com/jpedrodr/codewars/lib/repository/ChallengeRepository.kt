@@ -12,13 +12,21 @@ import com.jpedrodr.codewars.lib.network.ChallengeApi
 import com.jpedrodr.codewars.lib.network.Error
 import com.jpedrodr.codewars.lib.network.performNetwork
 import com.jpedrodr.codewars.lib.network.unwrapSuccess
-import kotlinx.coroutines.*
 import java.time.Duration
 import java.time.Instant
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val DEFAULT_PAGE_INDEX = 0
 private const val DEFAUlT_NO_DATA_SIZE = 0
-private val COMPLETED_CHALLENGES_CACHE_VALIDITY = Duration.ofMinutes(1)
+private val COMPLETED_CHALLENGES_CACHE_VALIDITY =
+    Duration.ofHours(1) // minimum duration between automatic refreshes
 
 /**
  * Repository responsible for communicating with the data sources regarding the challenges
@@ -37,7 +45,6 @@ class ChallengeRepository(
      * Gets the completed challenges from the backend
      */
     suspend fun getCompletedChallenges(): List<CompletedChallenge> = withContext(Dispatchers.IO) {
-        logger.d(TAG, "getCompletedChallenges - isOffline=${offlineModeRepository.isOffline()}")
         if (offlineModeRepository.isOffline()) {
             logger.d(
                 TAG,
@@ -91,10 +98,13 @@ class ChallengeRepository(
             return false
         }
 
+        val now = Instant.now().toEpochMilli()
         // if the cache validity is longer than the current time minis the last refresh timestamp, it is valid
-        val isValid = COMPLETED_CHALLENGES_CACHE_VALIDITY.toMillis() > Instant.now()
-            .toEpochMilli() - currentRefreshTimestamp
-        logger.d(TAG, "checkDataValidity - isValid=$isValid")
+        val isValid = COMPLETED_CHALLENGES_CACHE_VALIDITY.toMillis() > now - currentRefreshTimestamp
+        logger.d(
+            TAG,
+            "checkDataValidity - isValid=$isValid, currentRefreshTimestamp=$currentRefreshTimestamp, now=$now"
+        )
         return isValid
     }
 
@@ -115,9 +125,13 @@ class ChallengeRepository(
     }
 
     private fun insertChallengesInDatabase(challenges: List<CompletedChallenge>) {
-        logger.d(TAG, "insertChallengesInDatabase - challenges=${challenges.size}")
         completedChallengeDao.insertAll(challenges.mapToEntity())
-        completedChallengesLastRefreshTimestamp = Instant.now().toEpochMilli()
+        val timestamp = Instant.now().toEpochMilli()
+        completedChallengesLastRefreshTimestamp = timestamp
+        logger.d(
+            TAG,
+            "insertChallengesInDatabase - challenges=${challenges.size}, timestamp=$timestamp"
+        )
     }
 
     private suspend fun getCompletedChallengesFromNetwork(): List<CompletedChallenge> =

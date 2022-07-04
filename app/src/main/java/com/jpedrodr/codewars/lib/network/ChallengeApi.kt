@@ -1,6 +1,5 @@
 package com.jpedrodr.codewars.lib.network
 
-import com.jpedrodr.codewars.lib.model.CompletedChallengesResponse
 import com.jpedrodr.codewars.lib.model.dto.CompletedChallengesResponseDto
 import retrofit2.Response
 import retrofit2.http.GET

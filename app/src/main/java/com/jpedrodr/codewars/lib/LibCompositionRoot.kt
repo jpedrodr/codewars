@@ -22,12 +22,13 @@ internal class LibCompositionRoot(
     override val challengeInteractor: ChallengeInteractor
         get() = ChallengeInteractor(challengeRepository)
 
-    private val challengeRepository: ChallengeRepository
-        get() = ChallengeRepository(
+    private val challengeRepository: ChallengeRepository by lazy {
+        ChallengeRepository(
             challengeApi,
             database.completedChallengeDao(),
             offlineModeRepository
         )
+    }
 
     private val offlineModeRepository: OfflineModeRepository by lazy { OfflineModeRepository() }
 
