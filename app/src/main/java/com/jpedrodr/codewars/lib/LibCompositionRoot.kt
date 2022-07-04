@@ -5,12 +5,14 @@ import com.jpedrodr.codewars.lib.interactor.ChallengeInteractor
 import com.jpedrodr.codewars.lib.interactor.OfflineModeInteractor
 import com.jpedrodr.codewars.lib.network.ChallengeApi
 import com.jpedrodr.codewars.lib.network.RetrofitBuilder
+import com.jpedrodr.codewars.lib.platform.keyvaluestore.KeyValueStoreProvider
 import com.jpedrodr.codewars.lib.repository.ChallengeRepository
 import com.jpedrodr.codewars.lib.repository.OfflineModeRepository
 import retrofit2.Retrofit
 
 internal class LibCompositionRoot(
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val keyValueStoreProvider: KeyValueStoreProvider
 ) : Lib {
 
     override val offlineModeInteractor: OfflineModeInteractor
@@ -26,7 +28,8 @@ internal class LibCompositionRoot(
         ChallengeRepository(
             challengeApi,
             database.completedChallengeDao(),
-            offlineModeRepository
+            offlineModeRepository,
+            keyValueStoreProvider
         )
     }
 

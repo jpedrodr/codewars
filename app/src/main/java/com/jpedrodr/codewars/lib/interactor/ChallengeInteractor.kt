@@ -10,12 +10,4 @@ class ChallengeInteractor(
     suspend fun getCompletedChallenges(forceUpdate: Boolean = false): List<CompletedChallenge> {
         return challengeRepository.getCompletedChallenges(forceUpdate)
     }
-
-    fun setCompletedChallengesRefreshTimestamp(timestamp: Long) {
-        challengeRepository.setCompletedChallengesRefreshTimestamp(timestamp)
-    }
-
-    fun getCompletedChallengesRefreshTimestamp(): Long {
-        return challengeRepository.getCompletedChallengesRefreshTimestamp()
-    }
 }

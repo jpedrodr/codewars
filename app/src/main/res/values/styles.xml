@@ -11,7 +11,7 @@
         <item name="android:elevation">@dimen/toolbar_elevation</item>
     </style>
 
-    <style name="Theme.Challenge.List">
+    <style name="Theme.Challenge.ListContainer">
         <item name="android:layout_marginHorizontal">@dimen/challenge_list_horizontal_margin</item>
         <item name="android:layout_marginVertical">@dimen/challenge_list_vertical_margin</item>
     </style>

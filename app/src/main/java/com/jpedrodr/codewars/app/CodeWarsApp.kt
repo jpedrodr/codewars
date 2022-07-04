@@ -10,7 +10,7 @@ import com.jpedrodr.codewars.lib.database.AppDatabase
 
 class CodeWarsApp : Application(), Tagged {
 
-    private val _appCompositionRoot = AppCompositionRoot()
+    private val _appCompositionRoot = AppCompositionRoot(this)
 
     val appCompositionRoot: AppCompositionRoot
         get() = _appCompositionRoot

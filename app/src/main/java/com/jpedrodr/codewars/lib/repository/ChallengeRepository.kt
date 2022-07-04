@@ -12,6 +12,8 @@ import com.jpedrodr.codewars.lib.network.ChallengeApi
 import com.jpedrodr.codewars.lib.network.Error
 import com.jpedrodr.codewars.lib.network.performNetwork
 import com.jpedrodr.codewars.lib.network.unwrapSuccess
+import com.jpedrodr.codewars.lib.platform.keyvaluestore.KeyValueStoreProvider
+import com.jpedrodr.codewars.lib.platform.keyvaluestore.KeyValueStoreValues
 import java.time.Duration
 import java.time.Instant
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +29,9 @@ private const val DEFAUlT_NO_DATA_SIZE = 0
 private val COMPLETED_CHALLENGES_CACHE_VALIDITY =
     Duration.ofHours(1) // minimum duration between automatic refreshes
 
+private const val COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY =
+    "COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY"
+
 /**
  * Repository responsible for communicating with the data sources regarding the challenges
  */
@@ -34,11 +39,11 @@ class ChallengeRepository(
     private val challengeApi: ChallengeApi,
     private val completedChallengeDao: CompletedChallengeDao,
     private val offlineModeRepository: OfflineModeRepository,
+    private val keyValueStoreProvider: KeyValueStoreProvider,
     private val challengesScope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) : Tagged {
 
-    // The timestamp in milliseconds of the last refresh of the completed challenges
-    private var completedChallengesLastRefreshTimestamp: Long? = null
+    private val keyValueStore by lazy { keyValueStoreProvider.store(KeyValueStoreValues.KEY_CHALLENGES) }
 
     /**
      * Gets the completed challenges from the backend
@@ -80,30 +85,19 @@ class ChallengeRepository(
         insertChallengesInDatabase(completedChallenges)
     }
 
-    fun setCompletedChallengesRefreshTimestamp(timestamp: Long) {
-        logger.d(TAG, "setCompletedChallengesRefreshTimestamp - timestamp=$timestamp")
-        completedChallengesLastRefreshTimestamp = timestamp
-    }
-
-    fun getCompletedChallengesRefreshTimestamp(): Long {
-        val timestamp = completedChallengesLastRefreshTimestamp ?: INVALID_TIMESTAMP
-        logger.d(TAG, "getCompletedChallengesRefreshTimestamp - timestamp=$timestamp")
-        return timestamp
-    }
-
-    private fun checkDataValidity(): Boolean {
-        val currentRefreshTimestamp = completedChallengesLastRefreshTimestamp
-        if (currentRefreshTimestamp == null) {
+    private suspend fun checkDataValidity(): Boolean {
+        val timestamp = getCompletedChallengesLastRefreshTimestamp()
+        if (timestamp == INVALID_TIMESTAMP) {
             logger.d(TAG, "checkDataValidity - no last refresh timestamp, returning false")
             return false
         }
 
         val now = Instant.now().toEpochMilli()
         // if the cache validity is longer than the current time minis the last refresh timestamp, it is valid
-        val isValid = COMPLETED_CHALLENGES_CACHE_VALIDITY.toMillis() > now - currentRefreshTimestamp
+        val isValid = COMPLETED_CHALLENGES_CACHE_VALIDITY.toMillis() > now - timestamp
         logger.d(
             TAG,
-            "checkDataValidity - isValid=$isValid, currentRefreshTimestamp=$currentRefreshTimestamp, now=$now"
+            "checkDataValidity - isValid=$isValid, timestamp=$timestamp, now=$now"
         )
         return isValid
     }
@@ -124,10 +118,10 @@ class ChallengeRepository(
         return challenges
     }
 
-    private fun insertChallengesInDatabase(challenges: List<CompletedChallenge>) {
+    private suspend fun insertChallengesInDatabase(challenges: List<CompletedChallenge>) {
         completedChallengeDao.insertAll(challenges.mapToEntity())
         val timestamp = Instant.now().toEpochMilli()
-        completedChallengesLastRefreshTimestamp = timestamp
+        setCompletedChallengesLastRefreshTimestamp(timestamp)
         logger.d(
             TAG,
             "insertChallengesInDatabase - challenges=${challenges.size}, timestamp=$timestamp"
@@ -184,5 +178,17 @@ class ChallengeRepository(
         }
 
         return result.unwrapSuccess().mapToLib()
+    }
+
+    private suspend fun setCompletedChallengesLastRefreshTimestamp(timestamp: Long) {
+        logger.d(TAG, "setCompletedChallengesLastRefreshTimestamp - timestamp=$timestamp")
+        keyValueStore.write(COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY, timestamp)
+    }
+
+    private suspend fun getCompletedChallengesLastRefreshTimestamp(): Long {
+        val timestamp =
+            keyValueStore.read(COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY) ?: INVALID_TIMESTAMP
+        logger.d(TAG, "getCompletedChallengesLastRefreshTimestamp - timestamp=$timestamp")
+        return timestamp
     }
 }
