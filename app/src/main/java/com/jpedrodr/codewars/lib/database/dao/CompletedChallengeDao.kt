@@ -15,6 +15,6 @@ interface CompletedChallengeDao {
     @Query("SELECT EXISTS(SELECT 1 FROM completed_challenges LIMIT 1)")
     fun hasData(): Boolean
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(challenges: List<CompletedChallengeEntity>)
 }

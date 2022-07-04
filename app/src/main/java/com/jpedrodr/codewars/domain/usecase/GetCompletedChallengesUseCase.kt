@@ -12,8 +12,9 @@ class GetCompletedChallengesUseCase(
     private val challengeInteractor: ChallengeInteractor
 ) : Tagged {
 
-    suspend operator fun invoke(): List<CompletedChallenge> {
-        val completedChallenges = challengeInteractor.getCompletedChallenges().mapToDomain()
+    suspend operator fun invoke(forceUpdate: Boolean = false): List<CompletedChallenge> {
+        val completedChallenges =
+            challengeInteractor.getCompletedChallenges(forceUpdate).mapToDomain()
 
         logger.d(TAG, "invoke - completedChallenges=${completedChallenges.size}")
         return completedChallenges

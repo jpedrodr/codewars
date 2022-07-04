@@ -44,22 +44,23 @@ class ChallengeRepository(
     /**
      * Gets the completed challenges from the backend
      */
-    suspend fun getCompletedChallenges(): List<CompletedChallenge> = withContext(Dispatchers.IO) {
-        if (offlineModeRepository.isOffline()) {
-            logger.d(
-                TAG,
-                "getCompletedChallenges - in offline mode, getting challenges from database"
-            )
-            return@withContext getChallengesFromDatabase()
-        }
+    suspend fun getCompletedChallenges(forceUpdate: Boolean = false): List<CompletedChallenge> =
+        withContext(Dispatchers.IO) {
+            if (offlineModeRepository.isOffline()) {
+                logger.d(
+                    TAG,
+                    "getCompletedChallenges - in offline mode, getting challenges from database"
+                )
+                return@withContext getChallengesFromDatabase()
+            }
 
-        if (checkDataValidity()) {
-            logger.d(
-                TAG,
-                "getCompletedChallenges - data is valid, getting challenges from database"
-            )
-            return@withContext getChallengesFromDatabase()
-        }
+            if (!forceUpdate && checkDataValidity()) {
+                logger.d(
+                    TAG,
+                    "getCompletedChallenges - data is valid, getting challenges from database"
+                )
+                return@withContext getChallengesFromDatabase()
+            }
 
         val completedChallenges = getCompletedChallengesFromNetwork()
 
@@ -170,7 +171,7 @@ class ChallengeRepository(
         }
 
             return@coroutineScope firstPageResponse.data + deferredCalls.awaitAll()
-                .flatMap { it.data }
+                .flatMap { it.data }.distinctBy { it.id }
     }
 
     private suspend fun requestCompletedChallengesFromNetwork(page: Int): CompletedChallengesResponse {

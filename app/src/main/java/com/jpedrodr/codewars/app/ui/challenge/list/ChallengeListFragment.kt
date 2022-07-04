@@ -30,13 +30,13 @@ class ChallengeListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupAdapter()
+        initView()
         loadChallenges()
         setupObservers()
     }
 
     private fun loadChallenges() {
-        viewModel.initialize()
+        viewModel.loadChallenges()
     }
 
     private fun setupObservers() {
@@ -44,15 +44,21 @@ class ChallengeListFragment : BaseFragment() {
         viewModel.completedChallenges.observe(viewLifecycleOwner) {
             logger.d(TAG, "completedChallenges=${it.size}")
             adapter.setupItems(it)
+            viewBinding.challengesListSrl.isRefreshing = false
         }
     }
 
-    private fun setupAdapter() {
+    private fun initView() {
+        viewBinding.challengesListSrl.isRefreshing = true
         viewBinding.challengesListRv.adapter = adapter
 
         adapter.onItemClick = {
             logger.d(TAG, "onItemClick - challenge=$it")
             mainViewModel.openChallenge(it)
+        }
+
+        viewBinding.challengesListSrl.setOnRefreshListener {
+            viewModel.refreshChallenges()
         }
     }
 

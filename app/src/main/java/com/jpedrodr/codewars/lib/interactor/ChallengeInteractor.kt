@@ -7,8 +7,8 @@ class ChallengeInteractor(
     private val challengeRepository: ChallengeRepository
 ) {
 
-    suspend fun getCompletedChallenges(): List<CompletedChallenge> {
-        return challengeRepository.getCompletedChallenges()
+    suspend fun getCompletedChallenges(forceUpdate: Boolean = false): List<CompletedChallenge> {
+        return challengeRepository.getCompletedChallenges(forceUpdate)
     }
 
     fun setCompletedChallengesRefreshTimestamp(timestamp: Long) {

@@ -17,15 +17,21 @@ class ChallengeListViewModel(
     private val _completedChallenges = MutableLiveData<List<CompletedChallenge>>()
     val completedChallenges: LiveData<List<CompletedChallenge>> = _completedChallenges
 
-    fun initialize() {
+    fun loadChallenges() {
         viewModelScope.launch {
-            loadChallenges()
+            val challenges = getCompletedChallengesUseCase()
+            logger.d(TAG, "loadChallenges - challenges=${challenges.size}")
+            _completedChallenges.value = challenges.mapToUi()
         }
     }
 
-    private suspend fun loadChallenges() {
-        val challenges = getCompletedChallengesUseCase()
-        logger.d(TAG, "loadChallenges - challenges=${challenges.size}")
-        _completedChallenges.value = challenges.mapToUi()
+    fun refreshChallenges() {
+        viewModelScope.launch {
+            val challenges = getCompletedChallengesUseCase(true)
+            logger.d(TAG, "loadChallenges - challenges=${challenges.size}")
+            _completedChallenges.value = challenges.mapToUi()
+        }
     }
+
+
 }
