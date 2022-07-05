@@ -3,6 +3,9 @@ package com.jpedrodr.codewars.lib.interactor
 import com.jpedrodr.codewars.lib.model.CompletedChallenge
 import com.jpedrodr.codewars.lib.repository.ChallengeRepository
 
+/**
+ * Interactor responsible for challenges
+ */
 class ChallengeInteractor(
     private val challengeRepository: ChallengeRepository
 ) {

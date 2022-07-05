@@ -58,7 +58,7 @@ class ChallengeRepository(
                 return@withContext getChallengesFromDatabase()
             }
 
-            if (!forceUpdate && checkDataValidity()) {
+            if (!forceUpdate && checkCompletedChallengesValidity()) {
                 logger.d(
                     TAG,
                     "getCompletedChallenges - data is valid, getting challenges from database"
@@ -69,26 +69,37 @@ class ChallengeRepository(
             val completedChallenges = getCompletedChallengesFromNetwork()
 
             launch {
-                insertChallengesInDatabase(completedChallenges)
+                insertAllChallengesInDatabase(completedChallenges)
             }
 
             return@withContext completedChallenges
         }
 
-    fun refreshDataIfNeeded() = challengesScope.launch {
-        if (checkDataValidity()) {
-            logger.d(TAG, "refreshDataIfNeeded - data is valid, no need to refresh")
-            return@launch
-        }
+    /**
+     * Checks if the completed challenges is still valid and if not, refreshes it
+     */
+    fun refreshCompletedChallengesIfNeeded() {
+        challengesScope.launch(Dispatchers.IO) {
+            if (checkCompletedChallengesValidity()) {
+                logger.d(
+                    TAG,
+                    "refreshCompletedChallengesIfNeeded - data is valid, no need to refresh"
+                )
+                return@launch
+            }
 
-        val completedChallenges = getCompletedChallengesFromNetwork()
-        insertChallengesInDatabase(completedChallenges)
+            val completedChallenges = getCompletedChallengesFromNetwork()
+            insertAllChallengesInDatabase(completedChallenges)
+        }
     }
 
-    private suspend fun checkDataValidity(): Boolean {
+    private suspend fun checkCompletedChallengesValidity(): Boolean {
         val timestamp = getCompletedChallengesLastRefreshTimestamp()
         if (timestamp == INVALID_TIMESTAMP) {
-            logger.d(TAG, "checkDataValidity - no last refresh timestamp, returning false")
+            logger.d(
+                TAG,
+                "checkCompletedChallengesValidity - no last refresh timestamp, returning false"
+            )
             return false
         }
 
@@ -97,7 +108,7 @@ class ChallengeRepository(
         val isValid = COMPLETED_CHALLENGES_CACHE_VALIDITY.toMillis() > now - timestamp
         logger.d(
             TAG,
-            "checkDataValidity - isValid=$isValid, timestamp=$timestamp, now=$now"
+            "checkCompletedChallengesValidity - isValid=$isValid, timestamp=$timestamp, now=$now"
         )
         return isValid
     }
@@ -118,8 +129,8 @@ class ChallengeRepository(
         return challenges
     }
 
-    private suspend fun insertChallengesInDatabase(challenges: List<CompletedChallenge>) {
-        completedChallengeDao.insertAll(challenges.mapToEntity())
+    private suspend fun insertAllChallengesInDatabase(challenges: List<CompletedChallenge>) {
+        completedChallengeDao.replaceAll(challenges.mapToEntity())
         val timestamp = Instant.now().toEpochMilli()
         setCompletedChallengesLastRefreshTimestamp(timestamp)
         logger.d(

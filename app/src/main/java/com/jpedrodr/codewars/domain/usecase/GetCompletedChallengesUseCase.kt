@@ -6,7 +6,7 @@ import com.jpedrodr.codewars.domain.model.mapper.mapToDomain
 import com.jpedrodr.codewars.lib.interactor.ChallengeInteractor
 
 /**
- * Use case to get the completed challenges
+ * Use case responsible for getting the completed challenges
  */
 class GetCompletedChallengesUseCase(
     private val challengeInteractor: ChallengeInteractor,

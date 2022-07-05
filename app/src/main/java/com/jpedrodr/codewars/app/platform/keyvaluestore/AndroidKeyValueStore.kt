@@ -29,12 +29,13 @@ class AndroidKeyValueStore(
         return dataStore.data.first()[preferencesKey] ?: defaultValue
     }
 
+
     @Suppress("UNCHECKED_CAST")
     private fun <T> getKey(keyClass: Class<T>, key: String): Preferences.Key<T>? {
         return when (keyClass) {
             Long::class.java -> longPreferencesKey(key)
             else -> {
-                logger.wtf(TAG, "getKey - Unsupp")
+                logger.wtf(TAG, "getKey - Unsupported keyClass | keyclass=$keyClass")
                 null
             }
         } as Preferences.Key<T>?

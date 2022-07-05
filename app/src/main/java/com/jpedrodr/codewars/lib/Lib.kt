@@ -18,7 +18,13 @@ interface Lib {
         ): Lib = LibCompositionRoot(database, keyValueStoreProvider)
     }
 
+    /**
+     * Interactor responsible for challenges
+     */
     val challengeInteractor: ChallengeInteractor
 
+    /**
+     * Interactor responsible for offline mode
+     */
     val offlineModeInteractor: OfflineModeInteractor
 }
