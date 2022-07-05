@@ -50,7 +50,6 @@ class MainActivity : BaseActivity(), Tagged {
         setupListToolbar()
     }
 
-
     private fun setupToolbar() {
         setSupportActionBar(binding.mainToolbar)
         setupListToolbar()

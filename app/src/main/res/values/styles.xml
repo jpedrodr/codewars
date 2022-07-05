@@ -44,13 +44,11 @@
 
     <style name="Theme.Challenge.Text.Value">
         <item name="android:layout_marginStart">10dp</item>
-        <item name="android:textColor">@color/text_secondary_color</item>
     </style>
 
     <style name="Theme.Challenge.Details" />
 
     <style name="Theme.Challenge.Details.MainContainer">
-        <item name="android:background">@color/white</item>
         <item name="android:paddingHorizontal">
             @dimen/challenge_details_main_container_horizontal_padding
         </item>
