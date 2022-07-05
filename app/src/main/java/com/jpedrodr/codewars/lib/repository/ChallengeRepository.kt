@@ -182,12 +182,20 @@ class ChallengeRepository(
 
     private suspend fun setCompletedChallengesLastRefreshTimestamp(timestamp: Long) {
         logger.d(TAG, "setCompletedChallengesLastRefreshTimestamp - timestamp=$timestamp")
-        keyValueStore.write(COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY, timestamp)
+        keyValueStore.write(
+            COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY,
+            timestamp,
+            Long::class.java
+        )
     }
 
     private suspend fun getCompletedChallengesLastRefreshTimestamp(): Long {
         val timestamp =
-            keyValueStore.read(COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY) ?: INVALID_TIMESTAMP
+            keyValueStore.read(
+                COMPLETED_CHALLENGES_LAST_REFRESH_TIMESTAMP_KEY,
+                INVALID_TIMESTAMP,
+                Long::class.java
+            )
         logger.d(TAG, "getCompletedChallengesLastRefreshTimestamp - timestamp=$timestamp")
         return timestamp
     }
