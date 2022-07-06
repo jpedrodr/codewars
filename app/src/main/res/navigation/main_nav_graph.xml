@@ -10,7 +10,11 @@
         android:label="ChallengeListFragment">
         <action
             android:id="@+id/action_challengeListFragment_to_challengeDetailsFragment"
-            app:destination="@id/challengeDetailsFragment" />
+            app:destination="@id/challengeDetailsFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
         <argument
             android:name="completedChallenge"
             app:argType="com.jpedrodr.codewars.app.model.CompletedChallenge" />
